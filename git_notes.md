@@ -1,6 +1,6 @@
-# GitHub all knowledge
+# GitHub All Knowledge
 
-Github louieusc id:
+**Github louieusc id:**
 Email:
 P/W:
 
@@ -31,7 +31,6 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
 
 
 
-
 GIT可从网上搜索下载最新GIT
 
 1.安装后从Git Bash可打开窗口，提示行以$开头
@@ -39,7 +38,7 @@ GIT可从网上搜索下载最新GIT
 
 2.命令$ mkdir mygit创建新目录mygit
   $cd mygit进入该目录
-  $pwd可显示当前目录路径在哪
+  $pwd 显示当前目录路径在哪
   $ git init可将该目录变成GIT可管理的repository（库）
 
 
@@ -47,7 +46,7 @@ GIT可从网上搜索下载最新GIT
   注：勿使用Windows记事本编辑任何文本文件，用VS Code编辑之
   A. 先用VSC写一个新文本，保存至先前的mygit目录下（可能需手动添加扩展名.txt）
   B. 用命令$ git add 新文本名，将此文本存入暂存区（Staged）
-  C. $ git commit -m "简要说明此次动作内容"，为此次动作加注解
+  C. $ git commit -m "简要说明此次动作内容"，为此次动作加注解 (bash会问who are you, 按提示输入user email和user name即可)
   D. 用dir或ls命令，可查看当前目录是否已有该文件
   (ps. If some new add files got similar commits, might commit only once after adding them.)
 
