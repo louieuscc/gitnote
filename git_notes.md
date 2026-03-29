@@ -31,7 +31,7 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
 
 
 
-## GIT可从网上搜索下载最新GIT
+## GIT可从网上下载最新GIT (https://git-scm.com)
 
 1.安装后从Git Bash可打开工作窗口，提示以$开头
   
@@ -58,8 +58,8 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
 
   A. 在VS Code中更改文本
   B. 在Git Bash运行命令git status看状态，系统会提示改文本已修改，但并未提交（Commit）
-  C. 命令git diff，可查看修改详情
-  D. 命令git add及git commit将修改内容加入库中，并注释
+  C. 命令git diff，可查看修改详情 (如果已提交，将不会显示任何信息)
+  D. 先运行命令git add进行提交，再运行git commit进行注释
   E. 再运行命令git status查看状态，系统说当前无需要提交之修改，且工作树是干净的 (nothing to commit, working tree clean)
   F. 如需一次提交多个文件，可用：$ git add <file-1> <file-2> <file-3>...    且多个文件提交后只需commit一次
 
@@ -72,7 +72,7 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
 
   A. git log命令，即可显示历次修改的注释内容，顺序由新至旧，当前最新版本以HEAD表示，且每个commit都有一个很长的ID号。
   B. git reflog命令，可显示历次reset及每个版本的commit ID号。故即使关闭Git Bash仍可查到每个ID号的前7位
-     (注：运行了git log后，必须按字母键Q才能退出log状态并回到git命令行)
+     (注：旧版本运行了git log后，必须按字母键Q才能退出log状态并回到git命令行)
 
 
 6. **将某版本改设为当前最新版（HEAD）**
@@ -106,7 +106,7 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
 
 9. **建立远程库**
   A. Github为此远程库，需先注册，再在GITBASH上用$ ssh-keygen -t rsa -C "youremail@example.com"，创建SSH KEY。
-     此KEY位于本机c:\usr\louie\ssh\中，内有id_rsa.pub及id_rsa两文件。拷贝id_rsa.pub里的文本，粘贴至Github中的
+     此KEY位于本机c:\usr\louie\ssh\中，内有id_rsa.pub及id_rsa两文件。拷贝id_rsa.pub里的文本，粘贴至远程Github设置里的
      SSH key设置中即可。
   B. 在GITHUB上新建一个Repository，名字与本机已有repository相同。然后将二者建立关联：
      1. 在本地mygit库下运行命令$ git remote add origin git@github.com:louieusc/mygit.git      (注：louieusc是我在Github的ID)
