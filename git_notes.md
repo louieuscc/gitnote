@@ -16,10 +16,10 @@ https://github.com/apps/desktop?ref_cta=download+desktop&ref_loc=installing+gith
 除此desktop外，也可直接访问注册后的目录网址，如：
 https://github.com/louieuscc/tutorial （注册名为louieuscc）
 
-**如何删除单一文件**
+**如何删除单一文件？**
 进入该文件，点击右上下拉菜单，拉至最下点击delete file，再commit change，即可删除。
 
-**如何显示图片**
+**如何显示图片？**
   A.必须编辑/etc/host文件，写入相关DNS的IP地址及网址，才能显示图片。
   B.如图片网址为https://github.com/louieuscc/desktop-tutorial/tree/main/img/bat.png，则host文件中必须有GitHub.com的IP地址。
   C.Macbook中一般不能直接编辑host文件，可存为duplicate后再放入原host文件夹中，替换掉原host文件即可。host不能有扩展名。
@@ -29,14 +29,19 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
 上传图片后，COPY其链接地址。在READ.ME文件中输入代码！[image]()
 在圆括号中粘贴图片地址，即可。
 
+**md文件能正常显示吗？**
+推送至远程库中的md文件，点击后能在preview下显示md效果。
+
 
 
 ## GIT可从网上下载最新GIT (https://git-scm.com)
 
-1.安装后从Git Bash可打开工作窗口，提示以$开头
+**1.GIT装好后工作窗口叫Git Bash**
+
+窗口内提示以$开头
   
 
-2.**创建新目录mygit**
+**2.创建新目录mygit**
 
   $ mkdir mygit
   $cd mygit进入该目录
@@ -44,7 +49,7 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
   $ git init可将该目录变成GIT可管理的repository（库）
 
 
-3.**新建文本并添加入库**
+**3.新建文本并添加入库**
 
   注：勿使用Windows记事本编辑任何文本文件，用VS Code编辑之
   A. 先用VSC写一个新文本，保存至先前的mygit目录下（可能需手动添加扩展名.txt）
@@ -54,7 +59,7 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
   (ps. If some new add files got similar commits, might commit only once after adding them.)
 
 
-4.**在已有文本中进行更改、添加**
+**4.在已有文本中进行更改、添加**
 
   A. 在VS Code中更改文本
   B. 在Git Bash运行命令git status看状态，系统会提示改文本已修改，但并未提交（Commit）
@@ -68,14 +73,14 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
   (如果当日对文本会进行多次修改，只需在当日结束前一次性提交和注释，无需多次提交)
 
 
-5.**查看文本被历次修改的记录及Commit ID号**
+**5.查看文本被历次修改的记录及Commit ID号**
 
   A. git log命令，即可显示历次修改的注释内容，顺序由新至旧，当前最新版本以HEAD表示，且每个commit都有一个很长的ID号。
   B. git reflog命令，可显示历次reset及每个版本的commit ID号。故即使关闭Git Bash仍可查到每个ID号的前7位
      (注：旧版本运行了git log后，必须按字母键Q才能退出log状态并回到git命令行)
 
 
-6. **将某版本改设为当前最新版（HEAD）**
+**6. 将某版本改设为当前最新版（HEAD）**
 
   A. 如想将之前一步的旧版本设为最新版本，用命令git reset --hard HEAD^。^表示前一个，如要之前第二个，则为^^。
      更多位可用数字，如HEAD~100
@@ -86,7 +91,7 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
  （注： 命令git reset --hard commit_id，可将历次任一版本设置为最新HEAD）
 
 
-7. **撤消修改**
+**7. 撤消修改**
 
   A. 如果对文本作了一次修改，但并未add也未commit，现在要立即撤销修改，可用命令git restore --文件名
      然后用git status查看，系统显示工作树clean，即撤消修改完成。
@@ -97,24 +102,27 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
   C. 如果将修改既add入暂存区，也commit了，就用命令git reset --hard HEAD^，恢复到上一版本，修改自然消失)
 
 
-8. **删除文件**
+**8. 删除文件**
 
   A. 可直接在文本所在文件甲删除，但GIT STATUS后会显示有文件被删。如果误删想恢复，可用命令git checkout -- 文件名。
   B. 另也可用命令git rm 文件名，可删除文件，然后再commit。该文件即被永久删除，不可恢复。
 
 
 
-9. **建立远程库**
+**9. 建立远程库并上传文件**
   A. Github为此远程库，需先注册，再在GITBASH上用$ ssh-keygen -t rsa -C "youremail@example.com"，创建SSH KEY。
-     此KEY位于本机c:\usr\louie\ssh\中，内有id_rsa.pub及id_rsa两文件。拷贝id_rsa.pub里的文本，粘贴至远程Github设置里的
-     SSH key设置中即可。
+     此KEY位于本机c:\usr\louie\.ssh\中，内有id_rsa.pub及id_rsa两文件 (***注：有时此二文件可能创建到其它目录下，务必拷贝回.ssh正确文件夹中***)。
+     拷贝id_rsa.pub里的文本，粘贴至远程Github设置里的SSH key设置中即可。
   B. 在GITHUB上新建一个Repository，名字与本机已有repository相同。然后将二者建立关联：
-     1. 在本地mygit库下运行命令$ git remote add origin git@github.com:louieusc/mygit.git      (注：louieusc是我在Github的ID)
-     2. 首次把本地库的所有内容推送到远程库上并建立关联，用命令$ git push -u origin master
-   (注：如需删除远程某库，在网站GitHub.com上进入repository页面，在需删除库下点击Settings，在Danger Zone中点击Delete this repository)
+     1. 在本地mygit库下运行命令$ git remote add origin git@github.com:louieusc/mygit.git    (注：louieusc是我在Github的ID)
+     2. 首次把本地库的所有内容推送到远程库上并建立关联，用命令:
+     $git branch -M main (切换至分支main)
+     $git push -u origin main (当前目录所有文件都推到远程库的默认分支main内)
+     用命令$ git push -u origin master      (注：当前目录所有文件都推到远程库的指定分支master内)
+   (注：如需删除远程某库，在网站GitHub.com上进入repository页面，在需删除的库下点击Settings，在Danger Zone中点击Delete this repository)
 
 
-10. **关于多部主机向远程同一目录库发送提交**
+**10. 关于多部主机向远程同一目录库发送提交**
 
    A. 如果多部主机都需向远程同一Repository发送文件或commit，此时远程主机的repository会自动产生两个branch，一个名为
       master，另一个名为main。
@@ -122,7 +130,13 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
    C. 如果多部主机向远程不同Repository发送文件，则远程主机的repository只分别产生个自的branch。
 
 
-11. **克隆远程库**
+**11. 克隆远程库**
+克隆是将远程代码库的所有文件和版本历史复制到本地的操作，方便开发和协作。好处有：
+
+- 本地开发：克隆远程仓库后，开发人员可以在本地进行修改、测试和重构，而不会影响远程仓库的内容。这使得开发过程更加灵活和安全。 
+- 版本控制：克隆操作会将整个仓库的版本历史复制到本地，开发人员可以随时查看和管理代码的历史版本，便于追踪更改和回滚。 
+- 代码浏览：通过克隆，开发人员可以方便地浏览和查看远程仓库的代码，了解项目的结构和功能。 
+- 协作开发：在团队开发中，每个成员可以从远程仓库克隆一份代码，进行独立的开发和测试，最后再将更改推送回远程仓库。 
 
    A. 先在Github建立一个新库，命名为gitskill, 并勾选Initialize this repository with a README选项。
       此新库的SSH地址为：git@github.com:Louieusc/gitskill.git。它还有HTTPS地址为：https://github.com/Louieusc/gitskill.git
@@ -133,7 +147,7 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
    (克隆远程库便于将初始项目文件在远程库建立，各地主机从远程克隆)
 
 
-12. **创建、合并Branch（分支）**
+**12. 创建、合并Branch（分支）**
 
    A. $ git checkout -b Branch名，可创建新Branch并切换入该Branch。
       （注：相当于git branch Branch名和git checkout Branch名两个命令的合成）
@@ -151,7 +165,7 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
    (如要删除已发至远程库上的分支，只能在远程库的branch页面中进行)
 
 
-13. **查看、比较不同分支内的同一文件**
+**13. 查看、比较不同分支内的同一文件**
 
    A. 先在Git Bach上切换到新分支，从本机硬盘中找到该库内的某文件，更改内容后关闭
    B. 在Git Bach上切换到原分支，再从本机硬盘中找到库内同一文件，查看内容并无变化，关闭
@@ -159,7 +173,7 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
   （注：只需切换分支，无需换主机，从文件的同一保存位置即可查看不同分支内的该文件版本）
 
 
-14. **当不同分支内的编辑发生冲突时**
+**14. 当不同分支内的编辑发生冲突时**
 
    A. 如果在分支main内，编辑了文件README.MD，并add和commit。同时又在分支fea1内，也编辑了同名文件，并add和commit。此时如果merge fea1并不
       能合并之，系统会提示发生冲突Conflict要求修正。
@@ -169,7 +183,7 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
    D. 最后，可将新分支fea1删除掉。
 
 
-15. **识别曾经merge过的分支**
+**15. 识别曾经merge过的分支**
 
     通常merge branch后的文本并无特别标识。但在merge命令后加入 --no-ff 参数后，它会显示合并前的注释，从而发现合并痕迹。
    A. 在某目录下创建并切换分支
@@ -180,7 +194,7 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
    D. 用$ git log可看到分支曾被合并过的信息
 
 
-16. **封存当前工作状态**
+**16. 封存当前工作状态**
 
     如果在当前文件未进行完毕，虽已add但尚未commit时，如果急需解决另外文件问题，可先将当前文件封存起来，事后再解封。
    A. 在当前工作分支下，$ git stash
@@ -189,7 +203,7 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
    D. $ git stash pop，可解封并删除stash信息。之后再用git stash list查看，再无stash信息了。
 
 
-17. **关于Cherry-pick命令**
+**17. 关于Cherry-pick命令**
 
    对在同一目录下，某分支Dev又在封存状态下，如果要把原主支（名为main）的新改动同步到封存分支的同名文件中，需要以下步骤：
    A. 封存分支暂时不要解封
@@ -201,7 +215,7 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
 
 
 
-18. **关于远程库**
+**18. 关于远程库**
 
    远程库的默认名都是origin
    A. $ git remote可查远程库名，$ git remote -v可查其详情
@@ -215,7 +229,7 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
       d. 最后再push至远程库，$ git push origin <branch name>
 
 
-19. **标签TAG管理**
+**19. 标签TAG管理**
 
     TAG相当于一个commit的别名，但简洁有意义。通过它可以快速查找某个特定commit，从而进行相关处理。
    A. $ git tag <tag name> 可创建新标签，为分支内的最新commit
@@ -232,20 +246,20 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
    G. 删除远程库的某标签: 先删除本地某标签，再运行 $ git push origin :refs/tags/<tag name>
 
 
-20. **What is .MD extension in GitHub?**
+**20. What is .MD extension in GitHub?**
 
     MD means Markdown which is a plain-text file format. The extensions .md and .markdown are just text files written in Markdown syntax.
     If you have a Readme.md in your repo, GitHub will show the contents on the home page of your repo.
 
 
-21. **如何参与GITHUB的一个开源项目**
+**21. 如何参与GITHUB的一个开源项目**
 
     A. 在Github网站上，找到该项目，点击右上的Fork即可将项目内容拷贝至自己在Github的帐号中
     B. 从本机运行$ git clone git@github.com:louieusc/<项目名>，即可将项目内容克隆到本机的库中。今后可在本机推送修改
     C. 如官方库能接受该修改，可在GitHub上发起一个pull request
 
 
-22. **关于.gitignore忽略文件**
+**22. 关于.gitignore忽略文件**
 
     某些文件不便或不需提交但又需存入Git目录中，可在Repository下创建一个.gitignore文件，将不提交项列入文中
     A. <file name>: 将某文件列入忽略项
@@ -258,7 +272,7 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
      (P.S. For re-edit .gitignore file, you may use $ nano .gitignore without sudo account)
 
 
-23. **配置别名Alias**
+**23. 配置别名Alias**
 
     可将某些较复杂的命令设为简短的别名，之后运行命令时以别名代之
     A. $ git config --global alias.<alias> original name 
@@ -272,7 +286,7 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
 	sw = switch)
 
 
-24. **关于SourceTree**
+**24. 关于SourceTree**
 
     Sourcetree是一个用于本地的图形化GIT软件。通过图形界面方便运行GitBash命令
 
@@ -281,26 +295,21 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
     
     
     
-25. **ABOUT RM COMMAND**
+**25. ABOUT RM COMMAND**
 
    a. For removing a file with a spaceful title, use:
      $ git rm 'xxx xxx xx"
      
      
      
-26. **Visual Studio Code中，**
+**26. Visual Studio Code中，**
 左方Sidebar有一提交功能键。点击后输入commit内容，可完成当前所有提交和注释.
      
 
 一、克隆
-从远程仓库克隆是将远程代码库的所有文件和版本历史复制到本地的操作，方便开发和协作。
 
-克隆的目的和好处：
 
-本地开发：克隆远程仓库后，开发人员可以在本地进行修改、测试和重构，而不会影响远程仓库的内容。这使得开发过程更加灵活和安全。 
-版本控制：克隆操作会将整个仓库的版本历史复制到本地，开发人员可以随时查看和管理代码的历史版本，便于追踪更改和回滚。 
-代码浏览：通过克隆，开发人员可以方便地浏览和查看远程仓库的代码，了解项目的结构和功能。 
-协作开发：在团队开发中，每个成员可以从远程仓库克隆一份代码，进行独立的开发和测试，最后再将更改推送回远程仓库。 
+克隆的目的和
 
 
 1、克隆步骤
