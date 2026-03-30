@@ -146,7 +146,7 @@ https://github.com/louieuscc/tutorial （注册名为louieuscc）
 
    (克隆远程库便于将初始项目文件在远程库建立，各地主机从远程克隆)
 
-***解决 Git 中的 "src refspec master does not match any" …***
+**解决 Git 中的 "src refspec master does not match any"**
 
 使用push推送时会遇到 error: src refspec master does not match any... 错误，意味着试图推送到一个不存在的分支。
 例如：
