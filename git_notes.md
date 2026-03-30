@@ -1,4 +1,4 @@
-# GitHub All Knowledge
+# All about GitHub
 
 > **Github louieusc id:**
 > Email:
@@ -11,7 +11,7 @@
 
 
 
-*从下链接可下载Git Desktop（最新版）*
+*从链接可下载Git Desktop*
 https://github.com/apps/desktop?ref_cta=download+desktop&ref_loc=installing+github+desktop&ref_page=docs
 *也可直接访问注册后的目录网址，如：*
 https://github.com/louieuscc/tutorial （注册名为louieuscc）
@@ -62,7 +62,7 @@ Mac上的SSH 目录的位置是 `~/.ssh`
 
 
 
-**3.新建文本并添加入库**
+**3.新建文件并添加入库**
 
 *注：勿使用Windows记事本编辑任何文本文件，用VS Code编辑之*
 
@@ -75,53 +75,55 @@ Mac上的SSH 目录的位置是 `~/.ssh`
 - 用ls命令查看当前目录是否已有该文件
     (ps. If some new add files got similar commits, might commit only once after adding them.)
 
+**4.对已有文件进行修改或上传新文件**
 
-**4.在已有文本中进行更改、添加**
+- 在VS Code中更改文本，改后可随时存盘，但并未提交（commit）
 
-- 在VS Code中更改文本
-- 在Git Bash运行命令`$ git status`看状态，系统会提示改文本已修改，但并未提交（Commit）
-- 运行`$ git diff`，可查看修改详情 (如已提交，将不会显示任何信息)
+- 在Git Bash运行命令`$ git status`看状态，系统会提示文件已修改，但并未提交
+
+- 运行`$ git diff`，可查看修改详情 (仅刚对文本进行更改后，git diff命令才有效。如已提交将不会显示任何信息)
+
 - 先运行`$ git add <file name>`进行提交，再运行`$ git commit -m "<commit>"`进行注释
+
 - 再运行命令`$ git status`查看状态，系统说当前无需要提交之修改，且工作树是干净的 (nothing to commit, working tree clean)
+
 - 如需一次提交多个文件，可用：`$ git add <file-1> <file-2> <file-3>...`    且多个文件提交后只需commit一次
 
   注：
 
-- 仅在对文本刚进行更改之后，使用git diff命令才有效
-
-- Git为大小写敏感，编辑时务必注意文件名的大小写)
-    (如果当日对文本会进行多次修改，只需在当日结束前一次性提交和注释，无需多次提交)
+  *Git为大小写敏感，编辑时务必注意文件名的大小写
+  如果当日对文本会进行多次修改，只需在当日结束前一次性提交和注释，无需多次提交*
 
 **5. 查看文本被历次修改的记录及Commit ID号**
 
-  A. `$ git log`命令，即可显示历次修改的注释内容，顺序由新至旧，当前最新版本以HEAD表示，且每个commit都有一个很长的ID号。
-  B. `$ git reflog`命令，可显示历次reset及每个版本的commit ID号。故即使关闭Git Bash仍可查到每个ID号的前7位
-     (注：旧版本运行了git log后，必须按字母键Q才能退出log状态并回到git命令行)
+- `$ git log`命令，即可显示历次修改的注释内容，顺序由新至旧，当前最新版本以HEAD表示，且每个commit都有一个很长的ID号。
+- `$ git reflog`命令，可显示历次reset及每个版本的commit ID号。故即使关闭Git Bash仍可查到每个ID号的前7位
+       *注：运行git log后，必须按字母键q才能退出log状态并回到GitBash命令行*
 
 **6. 将某版本改设为当前最新版（HEAD）**
 
-  A. 如想将之前一步的旧版本设为最新版本，用命令`$ git reset --hard HEAD^`。^表示前一个，如要之前第二个，则为^^。
-     更多位可用数字，如HEAD~100
-  B. 用git log发现，前一旧版已被设为最新HEAD，而且被替换的先前最新版本已消失。
-  C. 如果想找回消失的那个版本，可在Git Bash窗口中找到该版本的commit ID号，记住前五位。再运行命令`$ git reset --hard commit_id`, 即可又将该版设为最新HEAD。commit_id只需前5位即可。
-  D. 用git log查看，该版已显示并又成为HEAD
- （注： 命令git reset --hard commit_id，可将历次任一版本设置为最新HEAD）
+- 如想将之前一步的旧版本设为最新版本，用命令`$ git reset --hard HEAD^`。^表示前一个，如要之前第二个，则为^^。
+       更多位可用数字，如HEAD~100
+- 用git log发现，前一旧版已被设为最新HEAD，而且被替换的先前最新版本已消失。
+- 如果想找回消失的那个版本，可在Git Bash窗口中找到该版本的commit ID号，记住前五位。再运行命令`$ git reset --hard commit_id`, 即可又将该版设为最新HEAD。commit_id只需前5位即可。
+- 用git log查看，该版已显示并又成为HEAD
+   *注： 命令git reset --hard commit_id，可将历次任一版本设置为最新HEAD*
 
 
 **7. 撤消修改**
 
-  A. 如果对文本作了一次修改，但并未add也未commit，现在要立即撤销修改，可用命令`$ git restore --文件名`
-     然后用git status查看，系统显示工作树clean，即撤消修改完成。
-  B. 如果对文本作了修改，且已经add(staged)但未commit，现在要撤销修改，可用命令`$ git restore --staged文件名`
-     再用git status查看，发现系统称该文件并未add，即已退出stage目录区。
-     此时再用命令git restore --文件名，然后用git status查看，系统显示工作树clean，完成撤消。
-     (注：可从VS Code查看原文件代码，发现需要撤消的修改已经消失)
-  C. 如果将修改既add入暂存区，也commit了，就用命令`$ git reset --hard HEAD^`，恢复到上一版本，修改自然消失)
+- 如果对文本作了一次修改，但并未add也未commit，现在要立即撤销修改，可用命令`$ git restore --文件名`
+       然后用git status查看，系统显示工作树clean，即撤消修改完成。
+- 如果对文本作了修改，且已经add(staged)但未commit，现在要撤销修改，可用命令`$ git restore --staged文件名`
+       再用git status查看，发现系统称该文件并未add，即已退出stage目录区。
+       此时再用命令`git restore --文件名`，然后用git status查看，系统显示工作树clean，完成撤消。
+       *注：可从VS Code查看原文件代码，发现需要撤消的修改已经消失*
+- 如果将修改既add也commit了，就用命令`$ git reset --hard HEAD^`，恢复到上一版本，修改自然消失
 
 **8. 删除文件**
 
-  A. 可直接在文本所在文件甲删除，但GIT STATUS后会显示有文件被删。如果误删想恢复，可用命令`git checkout -- 文件名`。
-  B. 另也可用命令git rm 文件名，可删除文件，然后再commit。该文件即被永久删除，不可恢复。
+  A. 可直接在文本所在文件甲删除，但git status后会显示有文件被删。如果误删想恢复，可用命令`git checkout -- 文件名`。
+  B. 另也可用命令`git rm <文件名>`，可删除文件，然后再commit。该文件即被永久删除，不可恢复。
 
 
 
@@ -142,7 +144,7 @@ Mac上的SSH 目录的位置是 `~/.ssh`
    A. 如果多部主机都需向远程同一Repository发送文件或commit，此时远程主机的repository会自动产生两个branch，一个名为
       master，另一个名为main。
    B. 平时把本地库所有最新内容推送至远程库，命令`$ git push origin <branch name>`。分支名为master或main。
-   C. 如果多部主机向远程不同Repository发送文件，则远程主机的repository只分别产生个自的branch。
+   C. 如果多部主机向远程不同Repository发送文件，则远程主机的repository只分别产生各自的branch。
 
 **11. 克隆远程库**
 克隆是将远程代码库的所有文件和版本历史复制到本地的操作，方便开发和协作。好处有：
@@ -162,13 +164,11 @@ Mac上的SSH 目录的位置是 `~/.ssh`
 
 **12. 创建、合并Branch（分支）**
 
-   A. `$ git checkout -b <Branch name>`，可创建新Branch并切换入该Branch。
-      （注：相当于git branch Branch名和git checkout Branch名两个命令的合成）
-   B. `$ git branch` 查看当前分支，可见所有新、旧branch名，当前所在branch名字前有*号
-   C. 在新branch路径下，更改本库的README.md文件并保存、add、commit。之后，在新branch中即产生一个修改后的README.md文件。
-      只要不切换回原branch（main），可对该文件持续编辑多次。而原branch中的README.me并无改变，且新分支仅本机可见，原分支并无痕迹。
-
-   D. 如要将新分支发往远程库，`$git push origin <新分支名>`
+- `$ git checkout -b <Branch name>`，可创建新Branch并切换入该Branch。
+        *注：相当于git branch Branch名和git checkout Branch名两个命令的合成*
+-  `$ git branch` 查看当前分支，可见所有新、旧branch名，当前所在branch名字前有*号
+- 在新branch路径下，更改本库的README.md文件并保存、add、commit。新branch随即会产生一个修改后的README.md文件。只要不切换回原branch（main），可对该文件持续编辑多次。而原branch中的README.me并无改变，且新分支仅本机可见，原分支并无痕迹。
+- 如要将新branch发往远程库，`$git push origin <新分支名>`
 
    E. 如需将新编辑的README.md文件合并回原branch(main)，需：
       （1）切换回原branch，`$ git checkout <原branch名>`
