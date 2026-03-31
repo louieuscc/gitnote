@@ -1,16 +1,11 @@
 # All about GitHub
 
-> Github louieuscc:
-> Id: louieuscc
-> Email: mright83@sina.com
-> P/w: 
 
 
-
-*从链接可下载Git Desktop*
-https://github.com/apps/desktop?ref_cta=download+desktop&ref_loc=installing+github+desktop&ref_page=docs
-*也可直接访问注册后的目录网址，如：*
-https://github.com/louieuscc/tutorial （注册名为louieuscc）
+> *从链接可下载Git Desktop*
+> https://github.com/apps/desktop?ref_cta=download+desktop&ref_loc=installing+github+desktop&ref_page=docs
+> *也可直接访问注册后的目录网址，如：*
+> https://github.com/louieuscc/
 
 
 
@@ -38,7 +33,7 @@ Mac上的SSH 目录的位置是 `~/.ssh`
 
 # 通过GitBash以命令行方式操作Github
 
-*Git可从此网址下载最新(https://git-scm.com)*
+*Git可从此网址下载 (https://git-scm.com)*
 
 
 
@@ -69,7 +64,9 @@ Mac上的SSH 目录的位置是 `~/.ssh`
 - `$ git commit -m "简要说明此次动作内容"`，为此次动作加注解 (bash会问who are you, 按提示输入user email和user name即可)
 
 - 用ls命令查看当前目录是否已有该文件
-    (ps. If some new add files got similar commits, might commit only once after adding them.)
+    (ps. If some new add files got similar commits, might commit only once after adding them)
+    
+    
 
 **4.对已有文件进行修改或上传新文件**
 
@@ -85,62 +82,85 @@ Mac上的SSH 目录的位置是 `~/.ssh`
 
 - 如需一次提交多个文件，可用：`$ git add <file-1> <file-2> <file-3>...`    且多个文件提交后只需commit一次
 
-  注：
+  
 
-  *Git为大小写敏感，编辑时务必注意文件名的大小写
-  如果当日对文本会进行多次修改，只需在当日结束前一次性提交和注释，无需多次提交*
+  *注：Git为大小写敏感，编辑时务必注意文件名的大小写
+           如果当日对文本会进行多次修改，只需在当日结束前一次性提交和注释，无需多次提交*
+  
+  
 
 **5. 查看文本被历次修改的记录及Commit ID号**
 
 - `$ git log`命令，即可显示历次修改的注释内容，顺序由新至旧，当前最新版本以HEAD表示，且每个commit都有一个很长的ID号。
+
 - `$ git reflog`命令，可显示历次reset及每个版本的commit ID号。故即使关闭Git Bash仍可查到每个ID号的前7位
-       *注：运行git log后，必须按字母键q才能退出log状态并回到GitBash命令行*
+   
+    *注：运行git log后，必须按字母键q才能退出log状态并回到GitBash命令行*
+   
+   
 
 **6. 将某版本改设为当前最新版（HEAD）**
 
 - 如想将之前一步的旧版本设为最新版本，用命令`$ git reset --hard HEAD^`。^表示前一个，如要之前第二个，则为^^。
        更多位可用数字，如HEAD~100
+   
 - 用git log发现，前一旧版已被设为最新HEAD，而且被替换的先前最新版本已消失。
+
 - 如果想找回消失的那个版本，可在Git Bash窗口中找到该版本的commit ID号，记住前五位。再运行命令`$ git reset --hard commit_id`, 即可又将该版设为最新HEAD。commit_id只需前5位即可。
+
 - 用git log查看，该版已显示并又成为HEAD
+   
    *注： 命令git reset --hard commit_id，可将历次任一版本设置为最新HEAD*
+   
+   
 
 
 **7. 撤消修改**
 
 - 如果对文本作了一次修改，但并未add也未commit，现在要立即撤销修改，可用命令`$ git restore --文件名`
        然后用git status查看，系统显示工作树clean，即撤消修改完成。
+   
 - 如果对文本作了修改，且已经add(staged)但未commit，现在要撤销修改，可用命令`$ git restore --staged文件名`
        再用git status查看，发现系统称该文件并未add，即已退出stage目录区。
        此时再用命令`git restore --文件名`，然后用git status查看，系统显示工作树clean，完成撤消。
        *注：可从VS Code查看原文件代码，发现需要撤消的修改已经消失*
+   
 - 如果将修改既add也commit了，就用命令`$ git reset --hard HEAD^`，恢复到上一版本，修改自然消失
+
+   
 
 **8. 删除文件**
 
-  A. 可直接在文本所在文件甲删除，但git status后会显示有文件被删。如果误删想恢复，可用命令`git checkout -- 文件名`。
-  B. 另也可用命令`git rm <文件名>`，可删除文件，然后再commit。该文件即被永久删除，不可恢复。
+- 可直接在文本所在文件甲删除，但git status后会显示有文件被删。如果误删想恢复，可用命令`git checkout -- 文件名`。
+- 另也可用命令`git rm <文件名>`，可删除文件，然后再commit。该文件即被永久删除，不可恢复。
 
 
 
 **9. 建立远程库并上传文件**
-  A. Github为此远程库，需先注册，再在Git bash上用`$ ssh-keygen -t rsa -C "youremail@example.com"`，创建SSH KEY。
-     此KEY位于本机c:\usr\louie\.ssh\中，内有id_rsa.pub及id_rsa两文件 (***注：有时此二文件可能创建到其它目录下，务必拷贝回.ssh正确文件夹中***)。
-     拷贝id_rsa.pub里的文本，粘贴至远程Github设置里的SSH key设置中即可。
-  B. 在GITHUB上新建一个Repository，名字与本机已有repository相同。然后将二者建立关联：
-     1. 在本地mygit库下运行命令`$ git remote add origin git@github.com:louieusc/mygit.git `   (注：louieusc是我在Github的ID)
-     2. 首次把本地库的所有内容推送到远程库上并建立关联，用命令:
-     ``$git branch -M main`(切换至分支main)
-`$git push -u origin main`(当前目录所有文件都推到远程库的默认分支main内)
-用命令`$git push -u origin master`   (注：当前目录所有文件都推到远程库的指定分支master内)
-   (注：如需删除远程某库，在网站GitHub.com上进入repository页面，在需删除的库下点击Settings，在Danger Zone中点击Delete this repository)
+
+- Github为此远程库，需先注册，再在Git bash上用`$ ssh-keygen -t rsa -C "youremail@example.com"`，创建SSH KEY。
+       此KEY位于本机c:\usr\louie\.ssh\中，内有id_rsa.pub及id_rsa两文件 (***注：有时此二文件可能创建到其它目录下，务必拷贝回.ssh正确文件夹中***)。
+       拷贝id_rsa.pub里的文本，粘贴至远程Github设置里的SSH key设置中即可。
+- 在GITHUB上新建一个Repository，名字与本机已有repository相同。然后将二者建立关联：
+
+   1. 在本地mygit库下运行命令`$ git remote add origin git@github.com:louieusc/mygit.git `  
+
+         *注：louieusc是我在Github的ID*
+
+   2. 首次把本地库的所有内容推送到远程库上并建立关联，用命令:
+         `$git branch -M main`(切换至分支main)
+         `$git push -u origin main`(当前目录所有文件都推到远程库的默认分支main内)
+         用命令`$git push -u origin master`   (注：当前目录所有文件都推到远程库的指定分支master内)
+         *注：如需删除远程某库，在网站GitHub.com上进入repository页面，在需删除的库下点击Settings，在Danger Zone中点击Delete this repository*
+
+         
 
 **10. 关于多部主机向远程同一目录库发送提交**
 
-   A. 如果多部主机都需向远程同一Repository发送文件或commit，此时远程主机的repository会自动产生两个branch，一个名为
-      master，另一个名为main。
-   B. 平时把本地库所有最新内容推送至远程库，命令`$ git push origin <branch name>`。分支名为master或main。
-   C. 如果多部主机向远程不同Repository发送文件，则远程主机的repository只分别产生各自的branch。
+- 如果多部主机都需向远程同一Repository发送文件或commit，此时远程主机的repository会自动产生两个branch，一个名为
+        master，另一个名为main。
+- 平时把本地库所有最新内容推送至远程库，命令`$ git push origin <branch name>`。分支名为master或main。
+- 如果多部主机向远程不同Repository发送文件，则远程主机的repository只分别产生各自的branch。
 
 
 
@@ -152,11 +172,11 @@ Mac上的SSH 目录的位置是 `~/.ssh`
 - 代码浏览：通过克隆，开发人员可以方便地浏览和查看远程仓库的代码，了解项目的结构和功能。 
 - 协作开发：在团队开发中，每个成员可以从远程仓库克隆一份代码，进行独立的开发和测试，最后再将更改推送回远程仓库。 
 
-   A. 先在Github建立一个新库，命名为gitnote, 并勾选Initialize this repository with a README选项。
-      此新库的SSH地址为：git@github.com:Louieuscc/gitnote.git。它还有HTTPS地址为：https://github.com/Louieuscc/gitnote.git
-   B. 开启Git Bach，进入c:\usr\louie
-   C. 运行命令`git clone git@github.com:louieuscc/gitnote.git`
-      如从HTTPS地址克隆，则运行`git clone https://github.com/Louieusc/gitskill.git`
+   1. 先在Github建立一个新库，命名为gitnote, 并勾选Initialize this repository with a README选项。
+      此新库的SSH地址为：git@github.com:Louieuscc/gitnote.git。它的HTTPS地址为：https://github.com/Louieuscc/gitnote.git
+   2. 开启Git Bash，进入c:\usr\louie
+      C. 运行命令`git clone git@github.com:louieuscc/gitnote.git`
+         如从HTTPS地址克隆，则运行`git clone https://github.com/Louieusc/gitskill.git`
 
    
 
@@ -216,26 +236,32 @@ Mac上的SSH 目录的位置是 `~/.ssh`
 **16. 封存当前工作状态**
 
     如果在当前文件未进行完毕，虽已add但尚未commit时，如果急需解决另外文件问题，可先将当前文件封存起来，事后再解封。
-   A. 在当前工作分支下，`$ git stash`
-   B. `$ git status`，显示工作树clean，封存已完成
-   C. `$ git stash list`，可显示封存信息
-   D. `$ git stash pop`，可解封并删除stash信息。之后再用git stash list查看，再无stash信息了。
+- 在当前工作分支下，`$ git stash`
+
+-  `$ git status`，显示工作树clean，封存已完成
+
+-  `$ git stash list`，可显示封存信息
+
+-  `$ git stash pop`，可解封并删除stash信息。之后再用git stash list查看，再无stash信息了。
+
+  
 
 **17. 关于Cherry-pick命令**
 
    对在同一目录下，某分支Dev又在封存状态下，如果要把原主支（名为main）的新改动同步到封存分支的同名文件中，需要以下步骤：
-   A. 封存分支暂时不要解封
-   B. 为对主支main改动而新建的分支（名为issue），merge后也暂时不能删除此新分支
-   C. 先在已封存的分支（名为dev）内运行`$ git cherry-pick issue的commit id号`，这样就能把改动一次同步到dev的同名文件中。无需merge
-   D. 此时再删除新分支issue。
-   E. 回到Dev分支，用命令`$ git stash pop`解封dev且删除stash信息。最后，commit先前未提交注释的文件
-   (注：如果一个新分支已提交并注释，但并未merge至主支main，此时新分支不能被删除。如果确定需要删除，需用`$ git branch -D <新分支名>`)
+
+- 封存分支暂时不要解封
+- 为对主支main改动而新建的分支（名为issue），merge后也暂时不能删除此新分支
+- 先在已封存的分支（名为dev）内运行`$ git cherry-pick issue的commit id号`，这样就能把改动一次同步到dev的同名文件中。无需merge
+- 此时再删除新分支issue
+- 回到Dev分支，用命令`$ git stash pop`解封dev且删除stash信息。最后，commit先前未提交注释的文件
+     (注：如果一个新分支已提交并注释，但并未merge至主支main，此时新分支不能被删除。如果确定需要删除，需用`$ git branch -D <新分支名>`)
 
 
 
 **18. 关于远程库**
 
-   远程库默认名都是origin
+   远程库默认名为origin
 
 - `$ git remote`可查远程库名，一般默认名为origin
 - `$ git remote -v`可查其详情
@@ -251,23 +277,30 @@ Mac上的SSH 目录的位置是 `~/.ssh`
 **19. 标签TAG管理**
 
     TAG相当于一个commit的别名，但简洁有意义。通过它可以快速查找某个特定commit，从而进行相关处理。
-   A. `$ git tag <tag name>` 可创建新标签，为分支内的最新commit
-   B. `$ git tag`可查看当前分支内的所有标签号
-   C. 如果要指定为先前某个commit创建标签，需先找到此commit的ID:
-     a. 查找commit的ID，可运行`$ git log --pretty=oneline --abbrev-commit`，能显示历次commit的ID短号、注释和已有Tag信息
-     b. 再运行`$ git tag <tag name> <commit id短号>`，即可创建标签
+-  `$ git tag <tag name>` 可创建新标签，为分支内的最新commit
 
-   D. `$ git show <tagname>`可查看标签具体信息
-   E. 将标签全部推送至远程库 `$ git push origin --tags` 
+-  `$ git tag`可查看当前分支内的所有标签号
+
+- 如果要指定为先前某个commit创建标签，需先找到此commit的ID:
+       a. 查找commit的ID，可运行`$ git log --pretty=oneline --abbrev-commit`，能显示历次commit的ID短号、注释和已有Tag信息
+       b. 再运行`$ git tag <tag name> <commit id短号>`，即可创建标签
+
+-  `$ git show <tagname>`可查看标签具体信息
+
+- 将标签全部推送至远程库 `$ git push origin --tags` 
       推送某一个标签至远程库 `$ git push origin <branch name>`
-    (注：标签无论是在哪个分支内创建，它在目录内所有分支中都可见)
-   F. 删除标签`$ git tag -d <tag name>`
-   G. 删除远程库的某标签: 先删除本地某标签，再运行` $ git push origin :refs/tags/<tag name>`
+      *注：标签无论是在哪个分支内创建，它在目录内所有分支中都可见*
 
-**20. What is .MD extension in GitHub?**
+- 删除标签`$ git tag -d <tag name>`
 
-MD means Markdown which is a plain-text file format. The extensions .md and .markdown are just text files written in Markdown syntax.
-If you have a Readme.md in your repo, GitHub will show the contents on the home page of your repo.
+- 删除远程库的某标签: 先删除本地某标签，再运行` $ git push origin :refs/tags/<tag name>`
+
+  
+
+**20. 带.MD扩展名的是什么文件?**
+
+MD是Markdown的缩写，是一种带格式风格的纯文本文件。它可以通过MD编辑器（如Typora）制作和输出。 
+repo中的md文件可以在GitHub中预览其内容。 
 
 
 
@@ -318,14 +351,14 @@ If you have a Readme.md in your repo, GitHub will show the contents on the home 
 
  Sourcetree是一个用于本地的图形化GIT软件。通过图形界面方便运行GitBash命令
 
-注：如果不能Push至远程库，则Tools->Options->General: in SSH client configuration set the SSH Client to OpenSSH, 
-select your id_dsa for SSH Key. 即可解决push问题。
+*注：如果不能Push至远程库，则Tools->Options->General: in SSH client configuration set the SSH Client to OpenSSH, 
+select your id_dsa for SSH Key. 即可解决push问题*
 
 
 
 **25. 关于 RM COMMAND**
 
-   a. For removing a file with a spaceful title, use:
+   For removing a file with a spaceful title, use:
      `$ git rm "<xxx xxx xx">`
      
 
@@ -360,11 +393,11 @@ git pull origin master:brantest
 git pull origin master
 ```
 
-上面命令表示取回 origin/master 分支，再与本地的 brantest 分支合并。
+该命令表示取回 origin/master 分支，再与本地的 brantest 分支合并。
 
 上面的 pull 操作用 fetch 表示为：
 
-以我的 https://github.com/tianqixin/runoob-git-test 为例，远程载入合并本地分支。
+以 https://github.com/tianqixin/runoob-git-test 为例，远程载入合并本地分支。
 
 ```
 $ git remote -v  # 查看信息
@@ -377,7 +410,7 @@ From https://github.com/tianqixin/runoob-git-test
 Already up to date.
 ```
 
-上面命令表示，取回 origin/master 分支，再与本地的 master 分支合并。
+以上命令表示，取回 origin/master 分支，再与本地的 master 分支合并。
 
 
 
