@@ -1,13 +1,9 @@
 # All about GitHub
 
-> **Github louieusc id:**
-> Email:
-> P/W:
-
 > Github louieuscc:
 > Id: louieuscc
 > Email: mright83@sina.com
-> P/w: Ly735280@
+> P/w: 
 
 
 
