@@ -9,8 +9,6 @@
 
 
 
-
-
 # 通过GitBash以命令行方式操作Github
 
 *Git可由此下载 (https://git-scm.com)*
@@ -106,10 +104,12 @@
 
    
 
-**8. 删除文件**
+**8. 删除文件、重命名文件**
 
-- 可直接在文本所在文件甲删除，但git status后会显示有文件被删。如果误删想恢复，可用命令`git checkout -- 文件名`。
-- 另也可用命令`git rm <文件名>`，可删除文件，然后再commit。该文件即被永久删除，不可恢复。
+- 可直接在文本所在文件夹删除。如果误删想恢复，可用命令`git checkout -- 文件名`。
+- 另也可用命令`git rm <文件名>`也可删除文件，然后再commit。该文件即被永久删除，不可恢复。
+- `git mv <文件名>`可移动或重命名文件，之后再commit。
+- 远程库的文件如需删除，最好在Github上进行。
 
 
 
@@ -117,9 +117,11 @@
 
 - Github远程库需先注册，再在Git bash上用`$ ssh-keygen -t rsa -C "youremail@example.com"`，创建SSH KEY。
        此KEY位于本机c:\usr\louie\.ssh\中，内有id_rsa.pub及id_rsa两文件 
-- ***注：有时此二文件可能创建到其它目录下，务必拷贝回.ssh正确文件夹中***
-       拷贝id_rsa.pub里的文本，粘贴至远程Github设置里的SSH key设置中即可。
-- 在GITHUB上新建一个库（Repository），名字与本机已有库相同。然后将二者建立关联：
+   
+   *注：有时此二文件可能创建到其它目录下，务必拷贝回.ssh正确文件夹中。Mac上的SSH 目录的位置是 `~/.ssh`*
+          *拷贝id_rsa.pub里的文本，粘贴至远程Github设置里的SSH key设置中即可。*
+   
+- 在Github上新建一个库（Repository），名字与本机已有库相同。然后将二者建立关联：
 
    1. 在本地mygit库下运行命令`$ git remote add origin git@github.com:louieusc/mygit.git `  
 
@@ -143,7 +145,7 @@
 
 
 **11. 克隆远程库**
-克隆是将远程代码库的所有文件和版本历史复制到本地的操作，方便开发和协作。便于将初始项目文件在远程库建立，各地主机从远程克隆。好处：
+克隆（Clone）是将远程库的所有文件和版本历史复制到本地的操作。初始项目文件可在远程库建立，然后各地主机从远程克隆至本地。好处：
 
 - 本地开发：克隆远程仓库后，开发人员可以在本地进行修改、测试和重构，而不会影响远程仓库的内容。这使得开发过程更加灵活和安全。 
 - 版本控制：克隆操作会将整个仓库的版本历史复制到本地，开发人员可以随时查看和管理代码的历史版本，便于追踪更改和回滚。 
@@ -152,7 +154,7 @@
 
    1. 先在Github建立一个新库，命名为gitnote, 并勾选Initialize this repository with a README选项。
       此新库的SSH地址为：git@github.com:Louieuscc/gitnote.git。它的HTTPS地址为：https://github.com/Louieuscc/gitnote.git
-   2. 开启Git Bash，进入c:\usr\louie
+   2. 开启GitBash，进入c:\usr\louie
       C. 运行命令`git clone git@github.com:louieuscc/gitnote.git`
          如从HTTPS地址克隆，则运行`git clone https://github.com/Louieusc/gitskill.git`
 
@@ -160,10 +162,17 @@
 
 **12. 创建、合并、删除、查看分支**
 
-- `$ git checkout -b <Branch name>`，可创建新Branch并切换入该Branch。
-        *注：相当于git branch Branch名和git checkout Branch名两个命令的合成*
+- `$ git checkout -b <Branch name>`
     
-- `$ git branch` 查看当前目录所有新旧分支名，当前所在branch名字前有*号
+    创建新Branch并切换入该分支
+    
+    ​    *注：相当于git branch Branch名和git checkout Branch名两个命令的合成*
+    
+    
+    
+- `$ git branch` 
+
+   查看当前目录所有分支名，当前所在分支名字前有*号
 
 - 在新branch路径下，更改本库的README.md文件并保存、add、commit。新branch随即会产生一个修改后的README.md文件。只要不切换回原branch（main），可对该文件持续编辑多次。而原branch中的README.me并无改变，且新分支仅本机可见，原分支并无痕迹。
 
@@ -173,12 +182,11 @@
       （1）切换回原branch，`$ git checkout <原branch名>`
       （2）$ git merge 新branch名
   
-- 如须删除分支，`$ git branch -d <branch名>`，即可删除该分支 
-
-   *注：彻底删除分支也可用` $ git -D <branch名>)
-   如要删除已发至远程库上的分支，只能在远程库的branch页面中进行*
-   
-- 如需进入分支并查看内容，可` $ git checkout <分类名>`即切换进入到分支内，再`$ ls` 即能显示分支内所有内容
+- `$ git branch -d <branch名>`，可删除该分支 
+  
+  *注：彻底删除分支也可用` $ git -D <branch名>`。如要删除已发至远程库上的分支，只能在远程库的branch页面中进行*
+  
+- 如需进入分支并查看内容，可` $ git checkout <分支名>`即切换入该分支内，再`$ ls` 即能显示分支内所有内容
 
    
 
@@ -239,8 +247,6 @@
 
    对在同一目录下某分支Dev又在封存状态下，如果要把原主支（名为main）的新改动同步到封存分支的同名文件中，需以下步骤：
 
-
-
 - 封存分支暂时不要解封
 - 为对主支main改动而新建的分支（名为issue），merge后也暂时不能删除此新分支
 - 先在已封存的分支（名为dev）内运行`$ git cherry-pick issue的commit id号`，这样就能把改动一次同步到dev的同名文件中。无需merge
@@ -265,14 +271,15 @@
      
 - 如果多地主机同时向远程库同一分支推送不同内容的同名文件，后推送者会失败。此时，可用`$ git pull`从远程库拉取他人最新的提交，再合并、推送。 
        - 先需`$ git branch --set-upstream-to=origin/分支名 本地分支名`，这将建立本地分支与远程库分支的链接 (分支名最好取为相同)
-    
+   
        - 再用`$ git pull`
-    
+        
        - 此时pull成功，但会显示二者文本有冲突。可手动合并之，再add和commit。
-    
+        
        - 最后再push至远程库，`$ git push origin <branch name>`
-    
-         
+   
+   
+   ​      
 
 **19. 标签TAG管理**
 
@@ -336,7 +343,7 @@ md文件可以在GitHub中预览其内容。
 可将某些较复杂的命令设为简短的别名，之后运行命令时以别名代之
 
 - `$ git config --global alias.<alias> original name`
-  (注：alias后有一点)
+  *注：alias后有一点*
 - 设置好的别名会自动存在GIT根目录下的.gitconfig文件中
 - 也可在.gitconfig文件中直接创建、更改、删除别名
   (我已设如下别名：
@@ -356,7 +363,7 @@ select your id_dsa for SSH Key. 即可解决push问题*
 
 
 
-**25. 关于 RM COMMAND**
+**25. 关于 RM 命令
 
    删除一个带空格的文件名的文件，用命令：
    `$ git rm "<xxx xxx xx">`
@@ -374,21 +381,25 @@ Visual Studio Code中，左方Sidebar有一提交功能键。点击后输入comm
 
 
 
-**28. 如何使用pull**
+**28. 关于对远程库的pull和fetch命令**
 
-将远程库origin的内容全部拉取下来：
+**git pull** 命令用于从远程获取代码并跟本地的版本进行合并。
+
+**git pull = git fetch +  git merge**，fetch命令可取回某文件，merge命令将其与本地文件合并。
+
+Pull命令格式为：
 
 ```
-$ git pull origin
+$ git pull <远程库名> <分支名>
 ```
 
-将远程主机 origin 的 master 分支拉取过来，与本地的 brantest 分支合并：
+将远程主机 origin 的 master 分支拉取下来，与本地分支brantest 合并：
 
 ```
 git pull origin master:brantest
 ```
 
-如果远程分支master是与当前分支合并，则冒号后面部分可以省略：
+如果远程分支master是与当前分支合并，则冒号后部分可省略：
 
 ```
 git pull origin master
@@ -396,11 +407,7 @@ git pull origin master
 
 该命令表示取回 origin/master 分支，再与本地的 brantest 分支合并。
 
-
-
-上面的 pull 操作用 fetch 表示为：
-
-以 https://github.com/tianqixin/runoob-git-test 为例，远程载入合并本地分支。
+以 https://github.com/tianqixin/runoob-git-test 为例如下：
 
 ```
 $ git remote -v  # 查看信息
@@ -413,11 +420,11 @@ From https://github.com/tianqixin/runoob-git-test
 Already up to date.
 ```
 
-以上命令表示，取回 origin/master 分支，再与本地的 master 分支合并。
+以上命令表示取回远程库origin的master 分支，再与本地的 master 分支合并。
 
 
 
-**29. 如何删除单一文件？**
+**29. Github上如何删除文件？**
 进入该文件，点击右上下拉菜单，拉至最下点击delete file，再commit，即可删除。
 
 
@@ -440,7 +447,7 @@ Already up to date.
 
 
 
-**32. 如何进入Mac的.ssh目录？**
+**32. Mac上的.ssh目录在哪里？**
 
 Mac上的SSH 目录的位置是 `~/.ssh`
 
