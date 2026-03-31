@@ -15,9 +15,23 @@
 
 
 
+**Git运行流程：**
+
+先进入本地工作区（例如user/louie/）。操作如新建、编辑等指令，并保存到本地工作区
+
+--> 然后`git add`，存入本地暂存区 
+
+--> 再`git commit`，加注释并存入本地库
+
+-->最后`git push`，提交至远程库  
+
+
+
 **1.GIT安装后即有GitBash的CLI窗口**
 
-   命令行提示以$开头
+   Windows系统会生成Bash特有图标，命令行提示以$开头
+
+   IOS系统中，GitBash与shell共用CLI窗口，无专有图标
 
 
 
@@ -45,7 +59,7 @@
     
     
 
-**4.对已有文件进行修改并存至暂存区
+**4.对已有文件进行修改并存至暂存区**
 
 - 在VS Code中更改文本，改后可随时存盘，但并未提交（commit）
 
@@ -163,7 +177,7 @@
 **12. 创建、合并、删除、查看分支**
 
 - `$ git checkout -b <Branch name>`
-    
+  
     创建新Branch并切换入该分支
     
     ​    *注：相当于git branch Branch名和git checkout Branch名两个命令的合成*
