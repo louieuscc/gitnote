@@ -9,66 +9,45 @@
 
 
 
-***如何删除单一文件？***
-进入该文件，点击右上下拉菜单，拉至最下点击delete file，再commit change，即可删除。
-
-***如何显示图片？***
-  A.必须编辑/etc/host文件，写入相关DNS的IP地址及网址，才能显示图片。
-  B.如图片网址为https://github.com/louieuscc/desktop-tutorial/tree/main/img/bat.png，则host文件中必须有GitHub.com的IP地址。
-  C.Macbook中一般不能直接编辑host文件，可存为duplicate后再放入原host文件夹中，替换掉原host文件即可。host不能有扩展名。
-  D.最好在Github上创建一个图片文件夹，如img。所有图片都上传到该文件夹。
-
-***如何在READ.ME文件中插入图片？***
-上传图片后，COPY其链接地址。在READ.ME文件中输入代码！[image]()
-在圆括号中粘贴图片地址，即可。
-
-***md文件能正常显示吗？***
-推送至远程库中的md文件，点击后能在preview下显示md效果。
-
-**如何进入Mac的.ssh目录？**
-
-Mac上的SSH 目录的位置是 `~/.ssh`
-
 
 
 # 通过GitBash以命令行方式操作Github
 
-*Git可从此网址下载 (https://git-scm.com)*
+*Git可由此下载 (https://git-scm.com)*
 
 
 
-**1.GIT装好后即有名为GitBash的CLI窗口**
+**1.GIT安装后即有GitBash的CLI窗口**
 
-窗口内提示以$开头
+   命令行提示以$开头
 
 
 
 **2.创建新目录mygit**
 
-  `$ mkdir mygit`
+  `$ mkdir mygit`创建
 
   `$ cd mygit` 进入该目录
-  `$ pwd` 显示当前目录路径在哪
-  `$ git init`将该目录变成GIT可管理的repository（库）
+  `$ pwd` 显示当前目录路径
+  `$ git init`将该目录变成GIT可管理的库
 
 
 
-**3.新建文件并添加入库**
+**3.新建文件并添加入暂存区**
 
-*注：勿使用Windows记事本编辑任何文本文件，用VS Code编辑之*
+- 先用VSC写一个新文件，保存至先前的mygit目录下（可能需手动添加扩展名.txt）
 
-- 先用VSC写一个新文本，保存至先前的mygit目录下（可能需手动添加扩展名.txt）
+- 用命令`$ git add 新文件名`，将此文本存入暂存区（Staged）
 
-- 用命令`$ git add 新文本名`，将此文本存入暂存区（Staged）
-
-- `$ git commit -m "简要说明此次动作内容"`，为此次动作加注解 (bash会问who are you, 按提示输入user email和user name即可)
+- `$ git commit -m "<简要说明此次动作>"`，为此次动作加注解 (bash可能问who are you, 按提示输入user email和user name即可)
 
 - 用ls命令查看当前目录是否已有该文件
-    (ps. If some new add files got similar commits, might commit only once after adding them)
+  
+    *注：勿使用Windows记事本编辑任何文本文件，用VS Code编辑之*
     
     
 
-**4.对已有文件进行修改或上传新文件**
+**4.对已有文件进行修改并存至暂存区
 
 - 在VS Code中更改文本，改后可随时存盘，但并未提交（commit）
 
@@ -82,8 +61,6 @@ Mac上的SSH 目录的位置是 `~/.ssh`
 
 - 如需一次提交多个文件，可用：`$ git add <file-1> <file-2> <file-3>...`    且多个文件提交后只需commit一次
 
-  
-
   *注：Git为大小写敏感，编辑时务必注意文件名的大小写
            如果当日对文本会进行多次修改，只需在当日结束前一次性提交和注释，无需多次提交*
   
@@ -94,9 +71,9 @@ Mac上的SSH 目录的位置是 `~/.ssh`
 - `$ git log`命令，即可显示历次修改的注释内容，顺序由新至旧，当前最新版本以HEAD表示，且每个commit都有一个很长的ID号。
 
 - `$ git reflog`命令，可显示历次reset及每个版本的commit ID号。故即使关闭Git Bash仍可查到每个ID号的前7位
-   
+  
     *注：运行git log后，必须按字母键q才能退出log状态并回到GitBash命令行*
-   
+
    
 
 **6. 将某版本改设为当前最新版（HEAD）**
@@ -109,7 +86,7 @@ Mac上的SSH 目录的位置是 `~/.ssh`
 - 如果想找回消失的那个版本，可在Git Bash窗口中找到该版本的commit ID号，记住前五位。再运行命令`$ git reset --hard commit_id`, 即可又将该版设为最新HEAD。commit_id只需前5位即可。
 
 - 用git log查看，该版已显示并又成为HEAD
-   
+  
    *注： 命令git reset --hard commit_id，可将历次任一版本设置为最新HEAD*
    
    
@@ -136,12 +113,13 @@ Mac上的SSH 目录的位置是 `~/.ssh`
 
 
 
-**9. 建立远程库并上传文件**
+**9. 建立远程库并上传文件至远程库**
 
-- Github为此远程库，需先注册，再在Git bash上用`$ ssh-keygen -t rsa -C "youremail@example.com"`，创建SSH KEY。
-       此KEY位于本机c:\usr\louie\.ssh\中，内有id_rsa.pub及id_rsa两文件 (***注：有时此二文件可能创建到其它目录下，务必拷贝回.ssh正确文件夹中***)。
+- Github远程库需先注册，再在Git bash上用`$ ssh-keygen -t rsa -C "youremail@example.com"`，创建SSH KEY。
+       此KEY位于本机c:\usr\louie\.ssh\中，内有id_rsa.pub及id_rsa两文件 
+- ***注：有时此二文件可能创建到其它目录下，务必拷贝回.ssh正确文件夹中***
        拷贝id_rsa.pub里的文本，粘贴至远程Github设置里的SSH key设置中即可。
-- 在GITHUB上新建一个Repository，名字与本机已有repository相同。然后将二者建立关联：
+- 在GITHUB上新建一个库（Repository），名字与本机已有库相同。然后将二者建立关联：
 
    1. 在本地mygit库下运行命令`$ git remote add origin git@github.com:louieusc/mygit.git `  
 
@@ -206,32 +184,43 @@ Mac上的SSH 目录的位置是 `~/.ssh`
 
 **13. 查看、比较不同分支内的同一文件**
 
-   A. 先在Git Bach上切换到新分支，从本机硬盘中找到该库内的某文件，更改内容后关闭
-   B. 在Git Bach上切换到原分支，再从本机硬盘中找到库内同一文件，查看内容并无变化，关闭
-   C. 在Git Bach上切换回新分支，再从本机硬盘中找到该文件查看内容，发现内容已变为更新后内容。
-  （注：只需切换分支，无需换主机，从文件的同一保存位置即可查看不同分支内的该文件版本）
+- 先在Git Bach上切换到新分支，从本机硬盘中找到该库内的某文件，更改内容后关闭
+
+- 在Git Bach上切换到原分支，再从本机硬盘中找到库内同一文件，查看内容并无变化，关闭
+
+- 在Git Bach上切换回新分支，再从本机硬盘中找到该文件查看内容，发现内容已变为更新后内容。
+    （注：只需切换分支，无需换主机，从文件的同一保存位置即可查看不同分支内的该文件版本）
+
+  
 
 
 **14. 当不同分支内的编辑发生冲突时**
 
-   A. 如果在分支main内，编辑了文件README.MD，并add和commit。同时又在分支fea1内，也编辑了同名文件，并add和commit。此时如果merge fea1并不
-      能合并之，系统会提示发生冲突Conflict要求修正。
-   B. 进入原分支main中，打开文件README.MD，发现系统自动加入了二分支的新编辑内容，并以<<<<<<和=====间隔之。
-      此时可直接编辑文本，将双方新编内容人工整合，保存。
-   C. 将整合后文件add并commit。对冲突的修正即完成。用$ git log可查看分支内容合并的具体情况。
-   D. 最后，可将新分支fea1删除掉。
+- 如果在分支main内，编辑了文件README.MD，并add和commit。同时又在分支fea1内，也编辑了同名文件，并add和commit。此时如果merge fea1并不能合并之，系统会提示发生冲突Conflict要求修正。
+
+- 进入原分支main中，打开文件README.MD，发现系统自动加入了二分支的新编辑内容，并以<<<<<<和=====间隔之。
+        此时可直接编辑文本，将双方新编内容人工整合，保存。
+
+- 将整合后文件add并commit。对冲突的修正即完成。用$ git log可查看分支内容合并的具体情况。
+
+- 最后，可将新分支fea1删除掉。
+
+  
 
 
 **15. 识别曾经merge过的分支**
 
     通常merge branch后的文本并无特别标识。但在merge命令后加入 --no-ff 参数后，它会显示合并前的注释，从而发现合并痕迹。
-   A. 在某目录下创建并切换分支
-   B. 修改文件后add并commit
-   C. 切换回原主支，`$ git merge --no-ff -m "merge with no-ff"` 新branch名，合并完成
-      (注：此次的-m参数是把合并注释进去)
+- 在某目录下创建并切换分支
 
-   D. 用`$ git log`可看到分支曾被合并过的信息
+- 修改文件后add并commit
 
+- 切换回原主支，`$ git merge --no-ff -m "merge with no-ff"` 新branch名，合并完成
+   *注：此次的-m参数是把合并注释进去*
+
+- 用`$ git log`可看到分支曾被合并过的信息
+
+  
 
 **16. 封存当前工作状态**
 
@@ -248,7 +237,9 @@ Mac上的SSH 目录的位置是 `~/.ssh`
 
 **17. 关于Cherry-pick命令**
 
-   对在同一目录下，某分支Dev又在封存状态下，如果要把原主支（名为main）的新改动同步到封存分支的同名文件中，需要以下步骤：
+   对在同一目录下某分支Dev又在封存状态下，如果要把原主支（名为main）的新改动同步到封存分支的同名文件中，需以下步骤：
+
+
 
 - 封存分支暂时不要解封
 - 为对主支main改动而新建的分支（名为issue），merge后也暂时不能删除此新分支
@@ -264,15 +255,24 @@ Mac上的SSH 目录的位置是 `~/.ssh`
    远程库默认名为origin
 
 - `$ git remote`可查远程库名，一般默认名为origin
+
 - `$ git remote -v`可查其详情
+
 - 推送分支的最新内容，用`$ git push origin <分支名>`
+
 - 最需要随时推送的分支是主支（如main或master），其他是否推送视情况而定。
      (注：分支在推送至远程库前，仅本地主机能查看分支内容）
+     
 - 如果多地主机同时向远程库同一分支推送不同内容的同名文件，后推送者会失败。此时，可用`$ git pull`从远程库拉取他人最新的提交，再合并、推送。 
-        - 先需`$ git branch --set-upstream-to=origin/分支名 本地分支名`，这将建立本地分支与远程库分支的链接 (分支名最好取为相同)
-        - 再用`$ git pull`
-        -  此时pull成功，但会显示二者文本有冲突。可手动合并之，再add和commit。
-        - 最后再push至远程库，`$ git push origin <branch name>`
+       - 先需`$ git branch --set-upstream-to=origin/分支名 本地分支名`，这将建立本地分支与远程库分支的链接 (分支名最好取为相同)
+    
+       - 再用`$ git pull`
+    
+       - 此时pull成功，但会显示二者文本有冲突。可手动合并之，再add和commit。
+    
+       - 最后再push至远程库，`$ git push origin <branch name>`
+    
+         
 
 **19. 标签TAG管理**
 
@@ -300,7 +300,7 @@ Mac上的SSH 目录的位置是 `~/.ssh`
 **20. 带.MD扩展名的是什么文件?**
 
 MD是Markdown的缩写，是一种带格式风格的纯文本文件。它可以通过MD编辑器（如Typora）制作和输出。 
-repo中的md文件可以在GitHub中预览其内容。 
+md文件可以在GitHub中预览其内容。 
 
 
 
@@ -326,7 +326,7 @@ repo中的md文件可以在GitHub中预览其内容。
 
   
 
-  注：.gitignore本质是一个plain text文件如果忽略成功，目录中即使新加入了该类型文件且在目录中可见，但运行$ git status后系统也会提示工作树clean，无文件需提交。如果例外成功，该文件被加入目录后，$ git status后系统将提示有文件需提交
+  *注：.gitignore本质是一个plain text文件，如果忽略成功，目录中即使新加入了该类型文件且在目录中可见，但运行$ git status后系统也会提示工作树clean，无文件需提交。如果例外成功，该文件被加入目录后，$ git status后系统将提示有文件需提交*
    (P.S. For re-edit .gitignore file, you may use $ nano .gitignore without sudo account)
 
 
@@ -358,8 +358,8 @@ select your id_dsa for SSH Key. 即可解决push问题*
 
 **25. 关于 RM COMMAND**
 
-   For removing a file with a spaceful title, use:
-     `$ git rm "<xxx xxx xx">`
+   删除一个带空格的文件名的文件，用命令：
+   `$ git rm "<xxx xxx xx">`
      
 
 **26. 在网络浏览器上进行提交**
@@ -376,24 +376,27 @@ Visual Studio Code中，左方Sidebar有一提交功能键。点击后输入comm
 
 **28. 如何使用pull**
 
+将远程库origin的内容全部拉取下来：
+
 ```
-$ git pull
 $ git pull origin
 ```
 
-将远程主机 origin 的 master 分支拉取过来，与本地的 brantest 分支合并。
+将远程主机 origin 的 master 分支拉取过来，与本地的 brantest 分支合并：
 
 ```
 git pull origin master:brantest
 ```
 
-如果远程分支是与当前分支合并，则冒号后面的部分可以省略。
+如果远程分支master是与当前分支合并，则冒号后面部分可以省略：
 
 ```
 git pull origin master
 ```
 
 该命令表示取回 origin/master 分支，再与本地的 brantest 分支合并。
+
+
 
 上面的 pull 操作用 fetch 表示为：
 
@@ -414,13 +417,32 @@ Already up to date.
 
 
 
+**29. 如何删除单一文件？**
+进入该文件，点击右上下拉菜单，拉至最下点击delete file，再commit，即可删除。
 
 
 
+**30. 如何显示图片？**
+
+- 必须编辑/etc/host文件，写入相关DNS的IP地址及网址，才能显示图片。
+
+- 如图片网址为https://github.com/louieuscc/desktop-tutorial/tree/main/img/bat.png，则host文件中必须有GitHub.com的IP地址。
+
+- Macbook中一般不能直接编辑host文件，可存为duplicate后再放入原host文件夹中，替换掉原host文件即可。host不能有扩展名
+
+- 最好在Github上创建一个图片文件夹，如img。所有图片都上传到该文件夹。
+
+  
+
+**31. 如何在READ.ME文件中插入图片？**
+上传图片后，Copy其链接地址。在READ.ME文件中输入代码！[image]()
+在圆括号中粘贴图片地址，即可。
 
 
 
+**32. 如何进入Mac的.ssh目录？**
 
+Mac上的SSH 目录的位置是 `~/.ssh`
 
 
 
