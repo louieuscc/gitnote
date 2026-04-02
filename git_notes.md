@@ -13,72 +13,287 @@
 
 *Git可由此下载 (https://git-scm.com)*
 
+*安装后即有GitBash的CLI窗口，Windows系统会生成Bash特有图标，命令行提示以$开头*
+
+*IOS系统中，GitBash与shell共用CLI窗口，无专有图标*
+
 
 
 **Git运行流程：**
 
-先进入本地工作区（例如user/louie/）。操作如新建、编辑等指令，并保存到本地工作区
+先将远程库克隆到本地根目录，查看本地会发现该库名的文件夹，内有文件若干。
 
---> 然后`git add`，存入本地暂存区 
+-->进入该文件夹，它即为本地工作区（例如user/louie/文件夹名）
 
---> 再`git commit`，加注释并存入本地库
+-->编辑修改刚下载的文件，保存 （会自动存入本地工作区）
 
--->最后`git push`，提交至远程库  
+--> 也可新建文件，并编辑、保存
 
+--> 然后`git add`，存入本地暂存区stage area（尚未被跟踪untracked）
 
+--> 再`git commit`，加注释并存入本地库local repo（已被跟踪）
 
-**1.GIT安装后即有GitBash的CLI窗口**
-
-   Windows系统会生成Bash特有图标，命令行提示以$开头
-
-   IOS系统中，GitBash与shell共用CLI窗口，无专有图标
+--> 最后`git push`，提交至远程库(GitHub)
 
 
 
-**2.创建新目录mygit**
+**1. 建立新远程库**
 
-  `$ mkdir mygit`创建
+> Github远程库需先注册，再用`$ ssh-keygen -t rsa -C "youremail@example.com"`，创建SSH KEY。
+>  此KEY位于本机c:\usr\louie\.ssh\中，内有id_rsa.pub及id_rsa两文件。Mac的SSH 目录的位置是 `~/.ssh 
+>
+> 有时此二文件可能创建到其它目录下，务必拷贝回.ssh正确文件夹中。
+> 复制id_rsa.pub里的文本，粘贴至远程Github设置里的SSH key设置中即可。
 
-  `$ cd mygit` 进入该目录
-  `$ pwd` 显示当前目录路径
-  `$ git init`将该目录变成GIT可管理的库
+- 登录已有Github帐号，点击新建库
 
+- 在新建页面中，务必选中自动生成README.md选项。如此，新库的某些功能(如新建分支)才会有效
 
+- 从此库界面上，可看到已自动生成一个默认branch分支，名为main
 
-**3.新建文件并添加入暂存区**
+- 点击界面的add file，用鼠标拉动本地文件上传。文件上传后即存在此main分支中
 
-- 先用VSC写一个新文件，保存至先前的mygit目录下（可能需手动添加扩展名.txt）
+- 后续即可clone此库到本地目录、pull文件等，实现本地与远程库全程同步了
 
-- 用命令`$ git add 新文件名`，将此文本存入暂存区（Staged）
-
-- `$ git commit -m "<简要说明此次动作>"`，为此次动作加注解 (bash可能问who are you, 按提示输入user email和user name即可)
-
-- 用ls命令查看当前目录是否已有该文件
   
-    *注：勿使用Windows记事本编辑任何文本文件，用VS Code编辑之*
-    
-    
 
-**4.对已有文件进行修改并存至暂存区**
+  将Github上的新库demo与本地库建立关联：
 
-- 在VS Code中更改文本，改后可随时存盘，但并未提交（commit）
+  1. 在本地库目录下运行`$ git remote add origin git@github.com:louieuscc/demo.git `  
 
-- 在Git Bash运行命令`$ git status`看状态，系统会提示文件已修改，但并未提交
+     *注：louieusc是我在Github的ID，库名demo*
+
+  2. 如果本地分支名与远程分支名都为main，则：
+
+     `$git branch -M main`(切换至分支main)
+     `$git push -u origin main`(当前目录所有文件都推到远程库的默认分支main内)
+
+
+
+**2. 克隆远程库**
+克隆将远程库所有文件和版本历史复制到本地。初始项目文件可在远程库建立，然后各地主机从远程克隆至本地。
+
+- 先在Github建立一个新库，命名为gitnote, 并勾选Initialize this repository with a README选项。
+  此新库的SSH地址为：git@github.com:Louieuscc/gitnote.git。它的HTTPS地址为：https://github.com/Louieuscc/gitnote.git
+
+- 开启GitBash，进入本地工作根目录，如c:\usr\louie
+
+- 运行`git clone git@github.com:louieuscc/gitnote.git`
+   也可从HTTPS网络地址克隆，运行`git clone https://github.com/Louieuscc/demo.git`
+
+- 如果克隆成功，则从本地根目录可发现一名为demo的文件夹，其中还包括一些文件
+
+  *后续即可在此本地位置编辑、上传文件至远程，实现同步。*
+
+  
+
+*克隆的好处：*
+
+*1.本地开发：克隆远程仓库后，可在本地修改、测试和重构，不会影响远程仓库的内容。令开发过程更灵活和安全。*
+
+*2.版本控制：将整个仓库的版本历史复制到本地，可以随时查看和管理代码的历史版本，便于追踪更改和回滚。* 
+
+*3.代码浏览：可以方便地浏览和查看远程仓库的代码，了解项目的结构和功能。* 
+
+*4.协作开发：在团队开发中，每个成员可以从远程仓库克隆一份代码，进行独立的开发和测试，最后再将更改推送回远程仓库。*
+
+
+
+**3. 对克隆至本地的文件进行编辑、修改并保存**
+
+- 先运行`pwd`和`ls`，查看当前目录及文件清单，找到需编辑文件
+
+- 在VS Code或Typora中编辑更改文件内容，存盘（此时仅存入本地工作区，但并未提交）
+
+- 运行命令`$ git status`看状态，系统会提示文件已修改，但并未提交
 
 - 运行`$ git diff`，可查看修改详情 (仅刚对文本进行更改后，git diff命令才有效。如已提交将不会显示任何信息)
 
-- 先运行`$ git add <file name>`进行提交，再运行`$ git commit -m "<commit>"`进行注释
+- `$ git add <file name>`进行提交，再`$ git commit -m "<commit>"`进行注释
 
-- 再运行命令`$ git status`查看状态，系统说当前无需要提交之修改，且工作树是干净的 (nothing to commit, working tree clean)
+- 再运行`$ git status`查看状态，系统报告当前无需提交之修改，且工作树干净 (nothing to commit, working tree clean)
 
-- 如需一次提交多个文件，可用：`$ git add <file-1> <file-2> <file-3>...`    且多个文件提交后只需commit一次
+- 如需一次提交多个文件，可`$ git add <file-1> <file-2> <file-3>...`
 
-  *注：Git为大小写敏感，编辑时务必注意文件名的大小写
-           如果当日对文本会进行多次修改，只需在当日结束前一次性提交和注释，无需多次提交*
+- `git branch`，明确本地分支名是什么，如果是main，而远程对应的demo库中的分支也是main，则：
+
+- `git push -u origin main`
+
+  如此，本地修改后的文件即提交至远程库中，并覆盖库内原文件。   
+
   
+
+  *注：多个文件修改保存后只需commit一次*
+
+  ​      *编辑时务必注意文件名的大小写*
+  ​       如当日对文件会多次修改，可随时保存，但只需在当日结束前一次性提交和注释，无需多次提交*
+
   
 
-**5. 查看文本被历次修改的记录及Commit ID号**
+**4.本地创建新文件**
+
+-  `$ ls` 查看本地目录
+
+-  `$ cd <库目录名>` 进入先前克隆至本地的库目录
+
+- `$ touch <file name>`建立新文件
+
+- `$ ls`查看新文件是否成功创建
+
+- `$ cat <file name>` 显示文件内容
+
+-  `$ git init`将该目录变成Git可管理的库
+
+- 通过`$ git add`和`$ git commit`将新文件存入本地库，等待后续远程提交
+
+  
+
+  *注：在远程库建立了对应库和分支后，未来即可进行远程提交*
+
+
+
+**5. 关于远程库**
+
+   远程库位于Github.com/<你的注册名>
+
+- `$ git remote`可查远程库名，一般默认名为origin
+
+- `$ git remote -v`可查其详情，如：
+
+  origin	https://github.com/louieuscc/demo.git (fetch)
+
+  origin	https://github.com/louieuscc/demo.git (push)
+
+  *表示在远程库中，库名为origin，内有一个名为demo的库*
+
+- 推送分支的最新内容，用`$ git push origin <分支名>`
+
+- 最需要随时推送的分支是主支（如main或master）
+  (注：分支在推送至远程库前，仅本地主机能查看分支内容）
+
+- 如果多地主机同时向远程库同一分支推送不同内容的同名文件，后推送者会失败。此时，可用`$ git pull`先从远程库拉取他人最新的提交再推送。 
+      - 先需`$ git branch --set-upstream-to=origin/分支名 本地分支名`，这将建立本地分支与远程库分支的链接 (分支名最好取为相同)
+      - 再用`$ git pull`
+
+  - 此时pull成功，但会显示二者文本有冲突。可手动合并之，再add和commit。
+
+  - 最后再push至远程库，`$ git push origin <branch name>`
+
+    
+
+    *注：如需删除远程某库，在GitHub.com上进入该库页面，点击Settings，在Danger Zone中点击Delete this repository*
+
+    
+
+**6. 关于对远程库的pull和fetch**
+
+**git pull** 命令用于从远程获取代码并跟本地的版本进行合并。
+
+**git pull = git fetch +  git merge**，fetch命令可取回某文件，merge命令将其与本地文件合并。
+
+Pull格式为：
+
+```
+$ git pull <远程库名> <分支名>
+```
+
+将远程主机 origin 的 master 分支拉取下来，与本地分支brantest 合并：
+
+```
+git pull origin master:brantest
+```
+
+如果远程分支master是与当前分支合并，则冒号后部分可省略：
+
+```
+git pull origin master
+```
+
+该命令表示取回 origin/master 分支，再与本地的 brantest 分支合并。
+
+以 https://github.com/tianqixin/runoob-git-test 为例如下：
+
+```
+$ git remote -v  # 查看信息
+origin    https://github.com/tianqixin/runoob-git-test (fetch)
+origin    https://github.com/tianqixin/runoob-git-test (push)
+
+$ git pull origin master
+From https://github.com/tianqixin/runoob-git-test
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+```
+
+以上命令表示取回远程库origin的master 分支，再与本地的 master 分支合并。
+
+
+
+**7. 如何从Github远程库下载文件**
+
+- 进入Github该文件所在目录，打开该文件，点击右上角Raw即显示出该文件的raw格式。
+- 右击鼠标选save as，即可下载该文件至本地。
+
+
+
+**8. 删除文件、重命名文件**
+
+- 远程库的文件如需删除，最好在Github上进行
+
+- 本地文件可直接进所在目录下删除
+
+- `git rm <文件名>`也可删除文件，然后再commit。该文件即被永久删除，不可恢复
+
+- `git mv <旧文件名> <新文件名>`可移动或重命名文件。此运作无需commit
+
+  例如：`mv readme.md README.md` 将readme.md文件改为新名字
+
+  
+
+**9.创建、合并、删除、查看分支**
+
+- `$ git branch` 
+
+  查看当前目录所有分支名，当前所在分支名字前有*号
+
+- `$ git checkout -b <Branch name>`
+
+  创建新branch并切换入该分支
+
+  ​    *注：相当于git branch Branch名和git checkout Branch名两个命令的合成*
+
+- `$ git branch -d <branch名>`
+
+  删除该分支 
+
+  *注：彻底删除分支也可用` $ git -D <branch名>`。如要删除已发至远程库上的分支，只能在远程库的branch页面中进行*
+
+- ` $ git checkout <分支名>`
+
+  如需查看分支内容，可切换入该分支再`$ ls` 即能显示分支内内容
+
+- 在新branch路径下，更改本库的README.md文件并保存、add、commit。新branch随即会产生一个修改后的README.md文件。只要不切换回原branch（main），可对该文件持续编辑多次。而原branch中的README.me并无改变，且新分支仅本机可见，原分支并无痕迹。
+
+- 如要将新branch发往远程库，`$git push origin <新分支名>`
+
+- 如需将新编辑的README.md文件合并回原branch(main)，需：
+      （1）切换回原branch，`$ git checkout <原branch名>`
+      （2）$ git merge 新branch名
+
+
+
+10.
+
+
+
+
+
+
+
+
+
+
+
+**15. 查看文本被历次修改的记录及Commit ID号**
 
 - `$ git log`命令，即可显示历次修改的注释内容，顺序由新至旧，当前最新版本以HEAD表示，且每个commit都有一个很长的ID号。
 
@@ -88,7 +303,7 @@
 
    
 
-**6. 将某版本改设为当前最新版（HEAD）**
+**16. 将某版本改设为当前最新版（HEAD）**
 
 - 如想将之前一步的旧版本设为最新版本，用命令`$ git reset --hard HEAD^`。^表示前一个，如要之前第二个，则为^^。
        更多位可用数字，如HEAD~100
@@ -103,8 +318,7 @@
    
    
 
-
-**7. 撤消修改**
+**17. 撤消修改**
 
 - 如果对文本作了一次修改，但并未add也未commit，现在要立即撤销修改，可用命令`$ git restore --文件名`
        然后用git status查看，系统显示工作树clean，即撤消修改完成。
@@ -118,38 +332,9 @@
 
    
 
-**8. 删除文件、重命名文件**
-
-- 可直接在文本所在文件夹删除。如果误删想恢复，可用命令`git checkout -- 文件名`。
-- 另也可用命令`git rm <文件名>`也可删除文件，然后再commit。该文件即被永久删除，不可恢复。
-- `git mv <文件名>`可移动或重命名文件，之后再commit。
-- 远程库的文件如需删除，最好在Github上进行。
 
 
-
-**9. 建立远程库并上传文件至远程库**
-
-- Github远程库需先注册，再在Git bash上用`$ ssh-keygen -t rsa -C "youremail@example.com"`，创建SSH KEY。
-       此KEY位于本机c:\usr\louie\.ssh\中，内有id_rsa.pub及id_rsa两文件 
-   
-   *注：有时此二文件可能创建到其它目录下，务必拷贝回.ssh正确文件夹中。Mac上的SSH 目录的位置是 `~/.ssh`*
-          *拷贝id_rsa.pub里的文本，粘贴至远程Github设置里的SSH key设置中即可。*
-   
-- 在Github上新建一个库（Repository），名字与本机已有库相同。然后将二者建立关联：
-
-   1. 在本地mygit库下运行命令`$ git remote add origin git@github.com:louieusc/mygit.git `  
-
-         *注：louieusc是我在Github的ID*
-
-   2. 首次把本地库的所有内容推送到远程库上并建立关联，用命令:
-         `$git branch -M main`(切换至分支main)
-         `$git push -u origin main`(当前目录所有文件都推到远程库的默认分支main内)
-         用命令`$git push -u origin master`   (注：当前目录所有文件都推到远程库的指定分支master内)
-         *注：如需删除远程某库，在网站GitHub.com上进入repository页面，在需删除的库下点击Settings，在Danger Zone中点击Delete this repository*
-
-         
-
-**10. 关于多部主机向远程同一目录库发送提交**
+**20. 关于多部主机向远程同一目录库发送提交**
 
 - 如果多部主机都需向远程同一Repository发送文件或commit，此时远程主机的repository会自动产生两个branch，一个名为
         master，另一个名为main。
@@ -158,51 +343,7 @@
 
 
 
-**11. 克隆远程库**
-克隆（Clone）是将远程库的所有文件和版本历史复制到本地的操作。初始项目文件可在远程库建立，然后各地主机从远程克隆至本地。好处：
-
-- 本地开发：克隆远程仓库后，开发人员可以在本地进行修改、测试和重构，而不会影响远程仓库的内容。这使得开发过程更加灵活和安全。 
-- 版本控制：克隆操作会将整个仓库的版本历史复制到本地，开发人员可以随时查看和管理代码的历史版本，便于追踪更改和回滚。 
-- 代码浏览：通过克隆，开发人员可以方便地浏览和查看远程仓库的代码，了解项目的结构和功能。 
-- 协作开发：在团队开发中，每个成员可以从远程仓库克隆一份代码，进行独立的开发和测试，最后再将更改推送回远程仓库。 
-
-   1. 先在Github建立一个新库，命名为gitnote, 并勾选Initialize this repository with a README选项。
-      此新库的SSH地址为：git@github.com:Louieuscc/gitnote.git。它的HTTPS地址为：https://github.com/Louieuscc/gitnote.git
-   2. 开启GitBash，进入c:\usr\louie
-      C. 运行命令`git clone git@github.com:louieuscc/gitnote.git`
-         如从HTTPS地址克隆，则运行`git clone https://github.com/Louieusc/gitskill.git`
-
-   
-
-**12. 创建、合并、删除、查看分支**
-
-- `$ git checkout -b <Branch name>`
-  
-    创建新Branch并切换入该分支
-    
-    ​    *注：相当于git branch Branch名和git checkout Branch名两个命令的合成*
-    
-    
-    
-- `$ git branch` 
-
-   查看当前目录所有分支名，当前所在分支名字前有*号
-
-- 在新branch路径下，更改本库的README.md文件并保存、add、commit。新branch随即会产生一个修改后的README.md文件。只要不切换回原branch（main），可对该文件持续编辑多次。而原branch中的README.me并无改变，且新分支仅本机可见，原分支并无痕迹。
-
-- 如要将新branch发往远程库，`$git push origin <新分支名>`
-
-- 如需将新编辑的README.md文件合并回原branch(main)，需：
-      （1）切换回原branch，`$ git checkout <原branch名>`
-      （2）$ git merge 新branch名
-  
-- `$ git branch -d <branch名>`，可删除该分支 
-  
-  *注：彻底删除分支也可用` $ git -D <branch名>`。如要删除已发至远程库上的分支，只能在远程库的branch页面中进行*
-  
-- 如需进入分支并查看内容，可` $ git checkout <分支名>`即切换入该分支内，再`$ ls` 即能显示分支内所有内容
-
-   
+ 
 
 **13. 查看、比较不同分支内的同一文件**
 
@@ -269,31 +410,7 @@
      (注：如果一个新分支已提交并注释，但并未merge至主支main，此时新分支不能被删除。如果确定需要删除，需用`$ git branch -D <新分支名>`)
 
 
-
-**18. 关于远程库**
-
-   远程库默认名为origin
-
-- `$ git remote`可查远程库名，一般默认名为origin
-
-- `$ git remote -v`可查其详情
-
-- 推送分支的最新内容，用`$ git push origin <分支名>`
-
-- 最需要随时推送的分支是主支（如main或master），其他是否推送视情况而定。
-     (注：分支在推送至远程库前，仅本地主机能查看分支内容）
-     
-- 如果多地主机同时向远程库同一分支推送不同内容的同名文件，后推送者会失败。此时，可用`$ git pull`从远程库拉取他人最新的提交，再合并、推送。 
-       - 先需`$ git branch --set-upstream-to=origin/分支名 本地分支名`，这将建立本地分支与远程库分支的链接 (分支名最好取为相同)
-   
-       - 再用`$ git pull`
-        
-       - 此时pull成功，但会显示二者文本有冲突。可手动合并之，再add和commit。
-        
-       - 最后再push至远程库，`$ git push origin <branch name>`
-   
-   
-   ​      
+ 
 
 **19. 标签TAG管理**
 
@@ -318,9 +435,9 @@
 
   
 
-**20. 带.MD扩展名的是什么文件?**
+**20. MD是什么文件?**
 
-MD是Markdown的缩写，是一种带格式风格的纯文本文件。它可以通过MD编辑器（如Typora）制作和输出。 
+MD是Markdown的缩写，扩展名为.md。是一种带格式风格的纯文本文件。它可以通过MD编辑器（如Typora）制作和输出。 
 md文件可以在GitHub中预览其内容。 
 
 
@@ -377,7 +494,7 @@ select your id_dsa for SSH Key. 即可解决push问题*
 
 
 
-**25. 关于 RM 命令
+**25. 关于 RM 命令**
 
    删除一个带空格的文件名的文件，用命令：
    `$ git rm "<xxx xxx xx">`
@@ -388,53 +505,11 @@ select your id_dsa for SSH Key. 即可解决push问题*
 Visual Studio Code中，左方Sidebar有一提交功能键。点击后输入commit内容，可完成当前所有提交和注释。
      
 
-**27. 如何从Github远程库下载文件**
-
-- 进入Github该文件所在目录，打开该文件，点击右上角Raw即显示出该文件的raw格式。
-- 右击鼠标选save as，即可下载该文件至本地。
+- 
 
 
 
-**28. 关于对远程库的pull和fetch命令**
 
-**git pull** 命令用于从远程获取代码并跟本地的版本进行合并。
-
-**git pull = git fetch +  git merge**，fetch命令可取回某文件，merge命令将其与本地文件合并。
-
-Pull命令格式为：
-
-```
-$ git pull <远程库名> <分支名>
-```
-
-将远程主机 origin 的 master 分支拉取下来，与本地分支brantest 合并：
-
-```
-git pull origin master:brantest
-```
-
-如果远程分支master是与当前分支合并，则冒号后部分可省略：
-
-```
-git pull origin master
-```
-
-该命令表示取回 origin/master 分支，再与本地的 brantest 分支合并。
-
-以 https://github.com/tianqixin/runoob-git-test 为例如下：
-
-```
-$ git remote -v  # 查看信息
-origin    https://github.com/tianqixin/runoob-git-test (fetch)
-origin    https://github.com/tianqixin/runoob-git-test (push)
-
-$ git pull origin master
-From https://github.com/tianqixin/runoob-git-test
- * branch            master     -> FETCH_HEAD
-Already up to date.
-```
-
-以上命令表示取回远程库origin的master 分支，再与本地的 master 分支合并。
 
 
 
