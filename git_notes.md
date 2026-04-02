@@ -109,13 +109,15 @@
 
 - 运行`$ git diff`，可查看修改详情 (仅刚对文本进行更改后，git diff命令才有效。如已提交将不会显示任何信息)
 
-- `$ git add <file name>`进行提交，再`$ git commit -m "<commit>"`进行注释
+- 先`$ git add <file name>`进行添加，存入本地暂存区
+
+- 再`$ git commit -m "<commit>"`进行注释，存入本地库
+
+- 命令`$ git commit -am <file name>`可同时实现add + commit
 
 - 再运行`$ git status`查看状态，系统报告当前无需提交之修改，且工作树干净 (nothing to commit, working tree clean)
 
-- 如需一次提交多个文件，可`$ git add <file-1> <file-2> <file-3>...`
-
-- `git branch`，明确本地分支名是什么，如果是main，而远程对应的demo库中的分支也是main，则：
+- `git branch`，查明本地分支名是什么，如果是main，而远程对应的demo库中的分支也是main，则：
 
 - `git push -u origin main`
 
@@ -146,7 +148,7 @@
 
 - 通过`$ git add`和`$ git commit`将新文件存入本地库，等待后续远程提交
 
-- 命令`$ git commit -am <注释内容>`可同时实现add + commit
+- 命令`$ git commit -am <文件名>`可同时实现add + commit
 
   
 
@@ -273,18 +275,34 @@ Already up to date.
 
   
 
- **10.撤消修改**
+ **10.撤消修改restore**
 
 - 如果对文件作了修改，但并未add和commit，可立即撤销修改
-- 命令`$ git restore --<文件名>`
+
+- 命令`$ git restore <文件名>`
   再用git status查看，系统显示工作树clean，即撤消修改完成。
-- 如果对文本作了修改，且已经add但未commit，也可撤销修改，用命令`$ git restore --staged <文件名>`
-      再用git status查看，发现系统称该文件并未add，即已退出暂存区。
-- 如果文件已经add且commit了，用命令`$ git reset --hard HEAD^`，恢复到上一版本，修改自然消失
+  
+- 文本作了修改且已经add但尚未commit，命令`$ git restore --staged <文件名>`，可撤销add的内容（但并非恢复到工作区中未作任何修改的原始状态）
+  再用git status查看，发现系统称该文件已修改但并未add，意为已退出暂存区。
+  
+- 如果文件已经add且commit了，用git status查看，系统显示无需commit，工作树干净。意为无法撤消修改。
+
+  此时只能用命令`$ git reset` 恢复到上一版本，令修改消失
+
+  
+
+**11.回滚版本reset**
+
+- 如果更改内容已经add和commit，则无法撤消修改，只能用此命令回到上一旧版本，令修改无效
+- `git reset HEAD^ <file name>` 回到最近一次之前的版本
+- `git reset --hard <版本号码>` 回到指定某版本号的版本
+- `$ git reset --hard HEAD^` 回到未做任何修改前的原始版本
 
 
 
-**11.查看、创建、合并、删除分支**
+
+
+**12.查看、创建、合并、删除分支**
 
 - `$ git branch` 
 
@@ -308,7 +326,7 @@ Already up to date.
 
 - ` $ git checkout <分支名>`
 
-  切换进入分支，如需查看分支内容，切换入该分支后再`$ ls` 即能显示分支内容
+  切换进入分支。如需查看分支内容，切换入该分支后再`$ ls` 即能显示分支内容
 
 - 如要将新branch发往远程库，`$git push origin <新分支名>`
 
@@ -374,22 +392,24 @@ Already up to date.
 - 用`git log`查看，该版已显示并又成为HEAD
   
    
-   
+  
 
 **17.临时封存**
 
     如果在当前文件未进行完毕，虽已add但尚未commit时，如果急需解决其它问题，可先将当前文件封存起来，事后再解封。
 - 在当前工作分支下，`$ git stash`
 
--  `$ git status`，显示工作树clean，封存已完成
+  系统会显示*Saved working directory and index state WIP on main: c6a29fb make a new file*，表示已保存入工作目录中，封存编号为c6a29fb
+
+-  `$ git status`，显示无需commit且
+
+-  工作树clean，封存完成
 
 -  `$ git stash list`，可显示封存信息
 
--  `$ git stash pop`，可解封并删除stash信息。之后再用git stash list查看，即再无stash信息了
+-  `$ git stash pop`，可解封并删除stash信息。之后用git stash list查看，再无stash信息
 
   
-
-
 
 **18. 关于挑选提交Cherry-pick**
 
@@ -495,7 +515,7 @@ md文件可以在GitHub中预览其内容。
 select your id_dsa for SSH Key. 即可解决push问题*
 
 
-     
+​     
 
 **35. 在VS上进行快速提交**
 
