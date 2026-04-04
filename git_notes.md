@@ -300,9 +300,7 @@ Already up to date.
 
 
 
-
-
-**12.查看、创建、合并、删除分支**
+**12.查看、创建、删除、合并分支**
 
 - `$ git branch` 
 
@@ -326,7 +324,9 @@ Already up to date.
 
 - ` $ git checkout <分支名>`
 
-  切换进入分支。如需查看分支内容，切换入该分支后再`$ ls` 即能显示分支内容
+  切换分支
+
+  如需查看分支内容，可先切换进入分支，再`ls` 即能显示分支内容
 
 - 如要将新branch发往远程库，`$git push origin <新分支名>`
 
@@ -345,7 +345,7 @@ Already up to date.
 
   
 
-**13. 当不同分支内的编辑发生冲突时**
+**13. 当不同分支内的编辑发生冲突**
 
 - 如果在分支main内，编辑了文件README.MD，并add和commit。同时又在分支fea1内，也编辑了同名文件，并add和commit。此时如果merge fea1并不能合并之，系统会提示发生冲突Conflict要求修正。
 - 进入原分支main中，打开文件README.MD，发现系统自动加入了二分支的新编辑内容，并以<<<<<<和=====间隔之。
@@ -401,9 +401,7 @@ Already up to date.
 
   系统会显示*Saved working directory and index state WIP on main: c6a29fb make a new file*，表示已保存入工作目录中，封存编号为c6a29fb
 
--  `$ git status`，显示无需commit且
-
--  工作树clean，封存完成
+-  `$ git status`，显示无需commit且工作树clean，封存完成
 
 -  `$ git stash list`，可显示封存信息
 
@@ -514,12 +512,11 @@ md文件可以在GitHub中预览其内容。
 *注：如果不能Push至远程库，则Tools->Options->General: in SSH client configuration set the SSH Client to OpenSSH, 
 select your id_dsa for SSH Key. 即可解决push问题*
 
+    
 
-​     
+**35. 在Visual Studio Code上进行Github操作**
 
-**35. 在VS上进行快速提交**
-
-Visual Studio Code中，左方Sidebar有一提交功能键。点击后输入commit内容，可完成当前所有提交和注释。
+Visual Studio Code上，crl + shift + p后的输入框中，输入git即可出现github相关命令，可进行相关操作。
      
 
 
