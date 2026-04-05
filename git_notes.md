@@ -48,10 +48,13 @@
   1. 在本地库目录下运行`$ git remote add origin git@github.com:louieuscc/demo.git `
 
      *注：louieusc是我在Github的ID，库名demo*
-  2. 如果本地分支名与远程分支名都为main，则：
-
+     
+2. 如果本地分支名与远程分支名都为main，则：
+  
      `$ git branch -M main`(切换至分支main)
      `$ git push -u origin main`(当前目录所有文件都推到远程库的默认分支main内)
+     
+     
 
 **2. 克隆远程库**
 克隆将远程库所有文件和版本历史复制到本地。初始项目文件可在远程库建立，然后各地主机从远程克隆至本地。
@@ -75,17 +78,28 @@
 
 *4.协作开发：在团队开发中，每个成员可以从远程仓库克隆一份代码，进行独立的开发和测试，最后再将更改推送回远程仓库。*
 
+
+
 **3. 对克隆至本地的文件进行编辑、修改并保存**
 
 - 先运行`pwd`和`ls`，查看当前目录及文件清单，找到需编辑文件
+
 - 使用相应编辑器对文件编辑更改，存盘（此时仅存入本地工作区，但并未提交）
+
 - 运行`$ git status`看状态，系统会提示文件已修改，但并未提交
+
 - 运行`$ git diff`，可查看修改详情 (仅刚对文本进行更改后，git diff命令才有效。如已提交将不会显示任何信息)
+
 - 先`$ git add <file name>`进行添加，存入本地暂存区
+
 - 再`$ git commit -m "<commit>"`进行注释，存入本地库
+
 - 命令`$ git commit -am <file name>`可同时实现add + commit
+
 - 再运行`$ git status`查看状态，系统报告当前无需提交之修改，且工作树干净 (nothing to commit, working tree clean)
+
 - `git branch`，查明本地分支名是什么，如果是main，而远程对应的demo库中的分支也是main，则：
+
 - `git push -u origin main`
 
   如此，本地修改后的文件即提交至远程库中，并覆盖库内原文件。
@@ -93,10 +107,13 @@
   *注：多个文件修改保存后只需commit一次*
 
   ```
-  ```
-
+  
+```
+  
   *编辑时务必注意文件名的大小写*
          如当日对文件会多次修改，可随时保存，但只需在当日结束前一次性提交和注释，无需多次提交*
+  
+  
 
 **4.本地创建新文件**
 
@@ -120,6 +137,8 @@
 
 *注：如果去掉 --global 参数只对当前仓库有效。*
 
+
+
 **5. 关于远程库**
 
 远程库位于Github.com/<你的注册名>
@@ -137,12 +156,16 @@
   (注：分支在推送至远程库前，仅本地主机能查看分支内容）
 - 如果多地主机同时向远程库同一分支推送不同内容的同名文件，后推送者会失败。此时，可用`$ git pull`先从远程库拉取他人最新的提交再推送。
   - 先需`$ git branch --set-upstream-to=origin/分支名 本地分支名`，这将建立本地分支与远程库分支的链接 (分支名最好取为相同)
-  - 再用`$ git pull`
-
+  
+- 再用`$ git pull`
+  
   - 此时pull成功，但会显示二者文本有冲突。可手动合并之，再add和commit。
-  - 最后再push至远程库，`$ git push origin <branch name>`
 
+  - 最后再push至远程库，`$ git push origin <branch name>`
+  
     *注：如需删除远程某库，在GitHub.com上进入该库页面，点击Settings，在Danger Zone中点击Delete this repository*
+    
+    
 
 **6. 对远程库的pull和fetch**
 
@@ -185,44 +208,68 @@ Already up to date.
 
 以上命令表示取回远程库origin的master 分支，再与本地的 master 分支合并。
 
+
+
 **7. 如何从Github远程库界面下载文件**
 
 - 进入Github该文件所在目录，打开该文件，点击右上角Raw即显示出该文件的raw格式。
+
 - 右击鼠标选save as，即可下载该文件至本地。
+
+  
 
 **8. 删除文件、重命名文件**
 
 - 远程库的文件如需删除，最好在Github上进行
+
 - 本地文件可直接进入所在目录删除
+
 - `git rm <文件名>`也可删除文件，然后再commit。该文件即被永久删除，不可恢复
+
 - `git mv <旧文件名> <新文件名>`可移动或重命名文件。此运作无需commit
 
   例如：`mv readme.md README.md` 将readme.md文件改为新名字
+  
+  
 
 **9.关于多部主机向远程同一目录库发送提交**
 
 - 如果多部主机都需向远程同一Repository发送文件或commit，此时远程主机的repository会自动产生两个branch，一个名为
   master，另一个名为main。
+  
 - 平时把本地库所有最新内容推送至远程库，命令`$ git push origin <branch name>`。分支名为master或main。
+
 - 如果多部主机向远程不同Repository发送文件，则远程主机的repository只分别产生各自的branch。
+
+  
 
 **10.撤消修改restore**
 
 - 如果对文件作了修改，但并未add和commit，可立即撤销修改
+
 - 命令`$ git restore <文件名>`
   再用git status查看，系统显示工作树clean，即撤消修改完成。
+  
 - 文本作了修改且已经add但尚未commit，命令`$ git restore --staged <文件名>`，可撤销add的内容（但并非恢复到工作区中未作任何修改的原始状态）
   再用git status查看，发现系统称该文件已修改但并未add，意为已退出暂存区。
+  
 - 如果文件已经add且commit了，用git status查看，系统显示无需commit，工作树干净。意为无法撤消修改。
 
   此时只能用命令`$ git reset` 恢复到上一版本，令修改消失
+  
+  
 
 **11.回滚版本reset**
 
 - 如果更改内容已经add和commit，则无法撤消修改，只能用此命令回到上一旧版本，令修改无效
+
 - `git reset HEAD^ <file name>` 回到最近一次之前的版本
+
 - `git reset --hard <版本号码>` 回到指定某版本号的版本
+
 - `$ git reset --hard HEAD^` 回到未做任何修改前的原始版本
+
+  
 
 **12.查看、创建、删除、合并分支**
 
@@ -234,8 +281,9 @@ Already up to date.
   创建新branch并切换入该分支
 
   ```
-  ```
-
+  
+```
+  
   *注：相当于git branch Branch名和git checkout Branch名两个命令的合成*
 - `$ git branch -d <branch名>`
 
@@ -335,20 +383,29 @@ md文件可以在GitHub中预览其内容。
 **30. 如何参与GITHUB的一个开源项目**
 
 - 在Github网站上，找到该项目，点击右上的Fork即可将项目内容拷贝至自己在Github的帐号中
+
 - 从本机运行`$ git clone git@github.com:louieusc/<项目名>`，即可将项目内容克隆到本机的库中。今后可在本机推送修改
+
 - 如官方库能接受该修改，可在GitHub上发起一个pull request
+
+  
 
 **31. 关于.gitignore忽略文件**
 
 某些文件不便或不需提交但又需存入Git目录中，可在Repo下创建一个.gitignore文件，将不提交项列入文中
 
 - <file name>: 将某文件列入忽略项
+
 - <.*>: 将所有以.开头的文件列入忽略项*
+
 - *<*.so>：将所有扩展名为so的文件列入忽略项
+
 - !<file name>: 不用忽略的例外文件
 
   *注：.gitignore本质是一个plain text文件，如果忽略成功，目录中即使新加入了该类型文件且在目录中可见，但运行$ git status后系统也会提示工作树clean，无文件需提交。如果例外成功，该文件被加入目录后，$ git status后系统将提示有文件需提交*
   (P.S. For re-edit .gitignore file, you may use $ nano .gitignore without sudo account)
+  
+  
 
 **32. 配置别名Alias**
 
@@ -356,13 +413,17 @@ md文件可以在GitHub中预览其内容。
 
 - `$ git config --global alias.<alias> original name`
   *注：alias后有一点*
+  
 - 设置好的别名会自动存在GIT根目录下的.gitconfig文件中
+
 - 也可在.gitconfig文件中直接创建、更改、删除别名
   (我已设如下别名：
   st = status
   cm = commit
   br = branch
   sw = switch)
+  
+  
 
 **33. 关于SourceTree**
 
