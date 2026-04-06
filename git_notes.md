@@ -509,12 +509,9 @@ md文件可以在GitHub中预览其内容。
 
  Sourcetree是一个用于本地的图形化GIT软件。通过图形界面方便运行GitBash命令
 
-*注：如果不能Push至远程库，则Tools->Options->General: in SSH client configuration set the SSH Client to OpenSSH, 
-select your id_dsa for SSH Key. 即可解决push问题*
-
 ​    
 
-**35. 在Visual Studio Code上进行Github操作**
+**34. 在Visual Studio Code上进行Github操作**
 
 Visual Studio Code上，crl + shift + p后的输入框中，输入git即可出现github相关命令，可进行相关操作。
 
@@ -524,12 +521,12 @@ Visual Studio Code上，crl + shift + p后的输入框中，输入git即可出�
 
 
 
-**36. Github上如何删除文件？**
+**35. Github上如何删除文件？**
 进入该文件，点击右上下拉菜单，拉至最下点击delete file，再commit，即可删除。
 
 
 
-**37. 如何显示图片？**
+**36. 如何显示图片？**
 
 - 必须编辑/etc/host文件，写入相关DNS的IP地址及网址，才能显示图片。
 
@@ -541,6 +538,6 @@ Visual Studio Code上，crl + shift + p后的输入框中，输入git即可出�
 
   
 
-**38. 如何在READ.ME文件中插入图片？**
+**37. 如何在READ.ME文件中插入图片？**
 上传图片后，Copy其链接地址。在READ.ME文件中输入代码！[image]()
-在圆括号中粘贴图片地址，即可。
+在圆括号中粘贴图片地址即可。
