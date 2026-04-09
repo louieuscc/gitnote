@@ -507,7 +507,12 @@ md文件可以在GitHub中预览其内容。
 
 **33. 关于SourceTree**
 
- Sourcetree是一个用于本地的图形化GIT软件。通过图形界面方便运行GitBash命令
+ Sourcetree是一个用于本地的图形化GIT软件。通过图形界面方便运行GitBash命令。
+
+1. 本地文件改动并保存（未add或commit）, Sourcetree能立即感应并在file status提示有文件pending，需后续操作
+2. 输入注释并`commit`，file status栏显示nothing to commit，即注释成功
+3. 继续操作，`push`刚才改动的文件
+4. Push成功，本地与远程同步
 
 ​    
 
