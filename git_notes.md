@@ -11,7 +11,7 @@
 
 # 通过GitBash以命令行方式操作Github
 
-*Git可由此下载 (https://git-scm.com)*
+*Git可由此下载 https://git-scm.com*
 
 *安装后即有GitBash的CLI窗口，Windows系统会生成Bash特有图标，命令行提示以$开头*
 
@@ -380,21 +380,67 @@ Already up to date.
 
    
 
-**16. 将某版本改设为当前最新版（HEAD）**
+**16.逐行查看修改情况**
+
+*git blame*命令逐行显示指定文件的每一行代码由谁、何时引入或修改。
+
+- `git blame <file name>` 显示该文件被提交修改的作者名、提交哈希、提交日期和提交内容
+
+  例如：
+
+  ~~~~
+  git blame note.md
+  76a79afd (Louie   2026-04-05 10:52:56 +0800 1) Take notes for git operation.
+  76a79afd (Louie   2026-04-05 10:52:56 +0800 2) 
+  e5154e1b (louieuscc 2026-04-05 12:11:25 +0800 3) And try some features on Sourcetree.
+  ~~~~
+
+  
+
+**17. 将某版本改设为当前最新版（HEAD）**
 
 - 命令`$ git reset --hard HEAD^`。^表示前一个，如要之前第二个，则为^^。
    可将某旧版设为最新版本，用更多位可用数字，如HEAD~100
-   
 - `git log`后可发现前一旧版已被设为最新HEAD，被替换的先前最新版本已消失
-
 - 如想找回消失的那个版本，可在Git Bash窗口中找到该版本的commit ID号，记住前五位。再运行命令`$ git reset --hard commit_id`, 即将该版设为最新HEAD。commit_id只需前5位即可
-
 - 用`git log`查看，该版已显示并又成为HEAD
   
-   
+
+
+
+**18. 标签TAG**
+
+    TAG相当于一个commit的别名，但简洁有意义。通过它可以快速查找某个特定commit，从而进行相关处理。
+
+- `$ git tag <tag name>` 可创建新标签，为分支内的最新commit
+
+- `$ git tag`可查看当前分支内的所有标签号
+
+- 如果要指定为先前某个commit创建标签，需先找到此commit的ID:
+      a. 查找commit的ID，可运行`$ git log --pretty=oneline --abbrev-commit`，能显示历次commit的ID短号、注释和已有Tag信息
+      b. 再运行`$ git tag <tag name> <commit id短号>`，即可创建标签
+
+- `$ git show <tagname>`可查看标签具体信息
+
+- 将标签全部推送至远程库 `$ git push origin --tags` 
+      推送某一个标签至远程库 `$ git push origin <branch name>`
+      *注：标签无论是在哪个分支内创建，它在目录内所有分支中都可见*
+
+- 删除标签`$ git tag -d <tag name>`
+
+- 删除远程库的某标签: 先删除本地某标签，再运行` $ git push origin :refs/tags/<tag name>`
+
   
 
-**17.临时封存**
+**19.**
+
+
+
+# Git的进阶操作
+
+
+
+**1.临时封存**
 
     如果在当前文件未进行完毕，虽已add但尚未commit时，如果急需解决其它问题，可先将当前文件封存起来，事后再解封。
 - 在当前工作分支下，`$ git stash`
@@ -409,9 +455,9 @@ Already up to date.
 
   
 
-**18. 关于挑选提交Cherry-pick**
+**2. 挑选提交Cherry-pick**
 
-   对同一目录下某分支在封存状态下，如果要把原主支main的新改动同步到封存分支的同名文件中，需：
+ 允许选择特定提交，并将其应用到当前分支。在需要从一个分支移植特定更改到另一分支时很有用。需：
 
 - 对封存分支暂不解封
 - 对主支main改动而新建的分支（名为issue），merge后也暂时不能删除此新分支
@@ -430,39 +476,18 @@ Already up to date.
 
 
 
+# 其他
 
 
-**28. 标签TAG**
 
-    TAG相当于一个commit的别名，但简洁有意义。通过它可以快速查找某个特定commit，从而进行相关处理。
--  `$ git tag <tag name>` 可创建新标签，为分支内的最新commit
-
--  `$ git tag`可查看当前分支内的所有标签号
-
-- 如果要指定为先前某个commit创建标签，需先找到此commit的ID:
-       a. 查找commit的ID，可运行`$ git log --pretty=oneline --abbrev-commit`，能显示历次commit的ID短号、注释和已有Tag信息
-       b. 再运行`$ git tag <tag name> <commit id短号>`，即可创建标签
-
--  `$ git show <tagname>`可查看标签具体信息
-
-- 将标签全部推送至远程库 `$ git push origin --tags` 
-      推送某一个标签至远程库 `$ git push origin <branch name>`
-      *注：标签无论是在哪个分支内创建，它在目录内所有分支中都可见*
-
-- 删除标签`$ git tag -d <tag name>`
-
-- 删除远程库的某标签: 先删除本地某标签，再运行` $ git push origin :refs/tags/<tag name>`
-
-  
-
-**29. MD是什么文件?**
+**1. MD是什么文件?**
 
 MD是Markdown的缩写，扩展名为.md。是一种带格式风格的纯文本文件。它可以通过MD编辑器（如Typora）制作和输出。 
 md文件可以在GitHub中预览其内容。 
 
 
 
-**30. 如何参与GITHUB的一个开源项目**
+**2. 如何参与GITHUB的一个开源项目**
 
 - 在Github网站上，找到该项目，点击右上的Fork即可将项目内容拷贝至自己在Github的帐号中
 - 从本机运行`$ git clone git@github.com:louieusc/<项目名>`，即可将项目内容克隆到本机的库中。今后可在本机推送修改
@@ -470,7 +495,7 @@ md文件可以在GitHub中预览其内容。
 
 
 
-**31. 关于.gitignore忽略文件**
+**3. 关于.gitignore忽略文件**
 
 某些文件不便或不需提交但又需存入Git目录中，可在Repo下创建一个.gitignore文件，将不提交项列入文中
 
@@ -489,7 +514,7 @@ md文件可以在GitHub中预览其内容。
 
 
 
-**32. 配置别名Alias**
+**4. 配置别名Alias**
 
 可将某些较复杂的命令设为简短的别名，之后运行命令时以别名代之
 
@@ -505,7 +530,7 @@ md文件可以在GitHub中预览其内容。
 
 
 
-**33. 关于SourceTree**
+**5. 关于SourceTree**
 
  Sourcetree是一个用于本地的图形化GIT软件。通过图形界面方便运行GitBash命令。
 
@@ -516,7 +541,7 @@ md文件可以在GitHub中预览其内容。
 
 ​    
 
-**34. 在Visual Studio Code上进行Github操作**
+**6. 在Visual Studio Code上进行Github操作**
 
 Visual Studio Code上，ctr + shift + p后的输入框中，输入git即可出现github相关命令，可进行相关操作。
 
@@ -526,12 +551,12 @@ Visual Studio Code上，ctr + shift + p后的输入框中，输入git即可出�
 
 
 
-**35. Github上如何删除文件？**
+**7. Github上如何删除文件？**
 进入该文件，点击右上下拉菜单，拉至最下点击delete file，再commit，即可删除。
 
 
 
-**36. 如何显示图片？**
+**8. 如何显示图片？**
 
 - 必须编辑/etc/host文件，写入相关DNS的IP地址及网址，才能显示图片。
 
@@ -543,6 +568,6 @@ Visual Studio Code上，ctr + shift + p后的输入框中，输入git即可出�
 
   
 
-**37. 如何在READ.ME文件中插入图片？**
+**9. 如何在READ.ME文件中插入图片？**
 上传图片后，Copy其链接地址。在READ.ME文件中输入代码！[image]()
 在圆括号中粘贴图片地址即可。
