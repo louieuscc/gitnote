@@ -518,7 +518,7 @@ md文件可以在GitHub中预览其内容。
 
 **34. 在Visual Studio Code上进行Github操作**
 
-Visual Studio Code上，crl + shift + p后的输入框中，输入git即可出现github相关命令，可进行相关操作。
+Visual Studio Code上，ctr + shift + p后的输入框中，输入git即可出现github相关命令，可进行相关操作。
 
 - 首先需将远程某库克隆至本地，本地硬盘会自动产生同名文件夹、文件
 - 本地文件改动后，VS会感应到并提示需commit、撰写注释或push
