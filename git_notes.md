@@ -2,16 +2,14 @@
 
 
 
-> *从链接可下载Git Desktop*
-> https://github.com/apps/desktop?ref_cta=download+desktop&ref_loc=installing+github+desktop&ref_page=docs
-> *也可直接访问注册后的目录网址，如：*
-> https://github.com/louieuscc/
+> *[Git Desktop由此下载](https://github.com/apps/desktop?ref_cta=download+desktop&ref_loc=installing+github+desktop&ref_page=docs)*
+> *可直接访问注册后的目录网址，如：*[Louie的Github网站](https://github.com/louieuscc/)
 
 
 
-# 通过GitBash以命令行方式操作Github
+# 以命令行方式操作Github
 
-*Git可由此下载 https://git-scm.com*
+*[Git由此下载]( https://git-scm.com)*
 
 *安装后即有GitBash的CLI窗口，Windows系统会生成Bash特有图标，命令行提示以$开头*
 
@@ -29,21 +27,25 @@
 
 --> 也可另外新建文件，并编辑、保存
 
---> 然后`$ git add`，存入本地暂存区stage area（尚未被跟踪untracked）
+--> 然后`git add`，存入本地暂存区stage area（尚未被跟踪untracked）
 
---> 再`$ git commit`，加注释并存入本地库local repo（已被跟踪）
+--> 再`git commit`，加注释并存入本地库local repo（已被跟踪）
 
---> 最后`$ git push`，提交至远程库(GitHub)
+--> 最后`git push`，提交至远程库(GitHub)
 
 
 
 **1. 建立新远程库**
 
-> Github远程库需先注册，再用`$ ssh-keygen -t rsa -C "youremail@example.com"`，创建SSH KEY。
->  此KEY位于本机c:\usr\louie\.ssh\中，内有id_rsa.pub及id_rsa两文件。Mac的SSH 目录位置是 `~/.ssh 
->
-> 有时此二文件可能创建到其它目录下，务必拷贝回.ssh正确文件夹中。
-> 复制id_rsa.pub里的文本，粘贴至远程Github设置里的SSH key设置中即可。
+- Github远程库需先注册，再创建SSH key：
+
+- ~~~~
+  $ ssh-keygen -t rsa -C <youremail@example.com> #创建SSH KEY
+  ~~~~
+
+*注：KEY位于本机c:\usr\usrname\.ssh\中，内有id_rsa.pub及id_rsa两文件。Mac的SSH位于 ~/.ssh*
+
+​      *此二文件也可能创建到其它目录下，务必拷贝回.ssh文件夹中。复制id_rsa.pub里的文本，粘贴至远程Github设置里的SSH key设置中*
 
 - 登录已有Github帐号，点击新建库
 
@@ -55,16 +57,20 @@
 
 - 后续即可clone此库到本地目录、pull文件等，实现本地与远程库全程同步了
 
-  
+  例如：
 
   将Github上的新库demo与本地库建立关联：
 
-  1. 在本地库目录下运行`$ git remote add origin git@github.com:louieuscc/demo.git `  
+  1. 在本地库目录下运行
+
+     ~~~~
+   $ git remote add origin git@github.com:louieuscc/demo.git
+     ~~~~
 
      *注：louieusc是我在Github的ID，库名demo*
-
+  
   2. 如果本地分支名与远程分支名都为main，则：
-
+  
      `$ git branch -M main`(切换至分支main)
      `$ git push -u origin main`(当前目录所有文件都推到远程库的默认分支main内)
 
@@ -78,10 +84,19 @@
 
 - 开启GitBash，进入本地工作根目录，如c:\usr\louie
 
-- 运行`git clone git@github.com:louieuscc/gitnote.git`
-   也可从HTTPS网络地址克隆，运行`git clone https://github.com/Louieuscc/demo.git`
-
-- 如果克隆成功，则从本地根目录可发现一名为demo的文件夹，其中还包括一些文件
+- 运行：
+   
+~~~~
+   $ git clone git@github.com:louieuscc/gitnote.git
+   ~~~~
+   
+   也可从HTTPS网络地址克隆，运行：
+   
+   ~~~~
+   $ git clone https://github.com/Louieuscc/demo.git
+   ~~~~
+   
+- 如克隆成功，则从本地根目录可发现一名为demo的文件夹，其中还包括一些文件
 
   *后续即可在此本地位置编辑、上传文件至远程，实现同步。*
 
@@ -105,17 +120,17 @@
 
 - 使用相应编辑器对文件编辑更改，存盘（此时仅存入本地工作区，但并未提交）
 
-- 运行`$ git status`看状态，系统会提示文件已修改，但并未提交
+- 运行`git status`看状态，系统会提示文件已修改，但并未提交
 
-- 运行`$ git diff`，可查看修改详情 (仅刚对文本进行更改后，git diff命令才有效。如已提交将不会显示任何信息)
+- 运行`git diff`，可查看修改详情 (仅刚对文本进行更改后，git diff命令才有效。如已提交将不会显示任何信息)
 
-- 先`$ git add <file name>`进行添加，存入本地暂存区
+- 先`git add <file name>`进行添加，存入本地暂存区
 
-- 再`$ git commit -m "<commit>"`进行注释，存入本地库
+- 再`git commit -m "<commit>"`进行注释，存入本地库
 
-- 命令`$ git commit -am <file name>`可同时实现add + commit
+- 命令`git commit -am <file name>`可同时实现add + commit
 
-- 再运行`$ git status`查看状态，系统报告当前无需提交之修改，且工作树干净 (nothing to commit, working tree clean)
+- 再运行`git status`查看状态，系统报告当前无需提交之修改，且工作树干净 (nothing to commit, working tree clean)
 
 - `git branch`，查明本地分支名是什么，如果是main，而远程对应的demo库中的分支也是main，则：
 
@@ -134,21 +149,21 @@
 
 **4.本地创建新文件**
 
--  `$ ls` 查看本地目录
+-  `ls` 查看本地目录
 
--  `$ cd <库目录名>` 进入先前克隆至本地的库目录
+-  `cd <branch name>` 进入先前克隆至本地的库目录
 
-- `$ touch <file name>`建立新文件
+- `touch <file name>`建立新文件
 
-- `$ ls`查看新文件是否成功创建
+- `ls`查看新文件是否成功创建
 
-- `$ cat <file name>` 显示文件内容
+- `cat <file name>` 显示文件内容
 
--  `$ git init`将该目录变成Git可管理的库
+-  `git init`将该目录变成Git可管理的库
 
-- 通过`$ git add`和`$ git commit`将新文件存入本地库，等待后续远程提交
+- 通过`git add`和`git commit`将新文件存入本地库，等待后续远程提交
 
-- 命令`$ git commit -am <文件名>`可同时实现add + commit
+- 命令`git commit -am <文件名>`可同时实现add + commit
 
   
 
@@ -215,26 +230,26 @@ $ git pull <远程库名> <分支名>
 将远程主机 origin 的 master 分支拉取下来，与本地分支brantest 合并：
 
 ```
-git pull origin master:brantest
+$ git pull origin master:brantest
 ```
 
 如果远程分支master是与当前分支合并，则冒号后部分可省略：
 
 ```
-git pull origin master
+$ git pull origin master
 ```
 
 该命令表示取回 origin/master 分支，再与本地的 brantest 分支合并。
 
-以 https://github.com/tianqixin/runoob-git-test 为例如下：
+以 https://github.com/louieuscc/test 为例如下：
 
 ```
 $ git remote -v  # 查看信息
-origin    https://github.com/tianqixin/runoob-git-test (fetch)
-origin    https://github.com/tianqixin/runoob-git-test (push)
+origin    https://github.com/louieuscc/test (fetch)
+origin    https://github.com/louieuscc/test (push)
 
 $ git pull origin master
-From https://github.com/tianqixin/runoob-git-test
+From https://github.com/louieuscc/test
  * branch            master     -> FETCH_HEAD
 Already up to date.
 ```
@@ -357,7 +372,7 @@ Already up to date.
 
 **14.识别曾经merge过的分支**
 
-    通常merge branch后的文本并无特别标识。但在merge命令后加入 --no-ff 参数后，它会显示合并前的注释，从而发现合并痕迹。
+通常merge branch后的文本并无特别标识。但在merge命令后加入 --no-ff 参数后，它会显示合并前的注释，从而发现合并痕迹。
 
 - 在某目录下创建并切换分支
 
@@ -399,10 +414,17 @@ Already up to date.
 
 **17. 将某版本改设为当前最新版（HEAD）**
 
-- 命令`$ git reset --hard HEAD^`。^表示前一个，如要之前第二个，则为^^。
+- ~~~~
+   $ git reset --hard HEAD^
+   ~~~~
+   
+   ^表示前一个，如要之前第二个，则为^^。
    可将某旧版设为最新版本，用更多位可用数字，如HEAD~100
+   
 - `git log`后可发现前一旧版已被设为最新HEAD，被替换的先前最新版本已消失
+
 - 如想找回消失的那个版本，可在Git Bash窗口中找到该版本的commit ID号，记住前五位。再运行命令`$ git reset --hard commit_id`, 即将该版设为最新HEAD。commit_id只需前5位即可
+
 - 用`git log`查看，该版已显示并又成为HEAD
   
 
@@ -410,7 +432,7 @@ Already up to date.
 
 **18. 标签TAG**
 
-    TAG相当于一个commit的别名，但简洁有意义。通过它可以快速查找某个特定commit，从而进行相关处理。
+TAG相当于一个commit的别名，但简洁有意义。通过它可以快速查找某个特定commit，从而进行相关处理。
 
 - `$ git tag <tag name>` 可创建新标签，为分支内的最新commit
 
@@ -436,13 +458,18 @@ Already up to date.
 
 
 
+
+
+
+
 # Git的进阶操作
 
 
 
 **1.临时封存**
 
-    如果在当前文件未进行完毕，虽已add但尚未commit时，如果急需解决其它问题，可先将当前文件封存起来，事后再解封。
+如果在当前文件未进行完毕，虽已add但尚未commit时，如果急需解决其它问题，可先将当前文件封存起来，事后再解封。
+
 - 在当前工作分支下，`$ git stash`
 
   系统会显示*Saved working directory and index state WIP on main: c6a29fb make a new file*，表示已保存入工作目录中，封存编号为c6a29fb
@@ -476,63 +503,13 @@ Already up to date.
 
 
 
-# 其他
+# 以图形界面方式操作Github
 
 
 
-**1. MD是什么文件?**
+**1.在SourceTree上操作**
 
-MD是Markdown的缩写，扩展名为.md。是一种带格式风格的纯文本文件。它可以通过MD编辑器（如Typora）制作和输出。 
-md文件可以在GitHub中预览其内容。 
-
-
-
-**2. 如何参与GITHUB的一个开源项目**
-
-- 在Github网站上，找到该项目，点击右上的Fork即可将项目内容拷贝至自己在Github的帐号中
-- 从本机运行`$ git clone git@github.com:louieusc/<项目名>`，即可将项目内容克隆到本机的库中。今后可在本机推送修改
-- 如官方库能接受该修改，可在GitHub上发起一个pull request
-
-
-
-**3. 关于.gitignore忽略文件**
-
-某些文件不便或不需提交但又需存入Git目录中，可在Repo下创建一个.gitignore文件，将不提交项列入文中
-
-- <file name>: 将某文件列入忽略项
-
--  <.*>: 将所有以.开头的文件列入忽略项*
-
-- *<*.so>：将所有扩展名为so的文件列入忽略项
-
-- !<file name>: 不用忽略的例外文件
-
-  
-
-  *注：.gitignore本质是一个plain text文件，如果忽略成功，目录中即使新加入了该类型文件且在目录中可见，但运行$ git status后系统也会提示工作树clean，无文件需提交。如果例外成功，该文件被加入目录后，$ git status后系统将提示有文件需提交*
-   (P.S. For re-edit .gitignore file, you may use $ nano .gitignore without sudo account)
-
-
-
-**4. 配置别名Alias**
-
-可将某些较复杂的命令设为简短的别名，之后运行命令时以别名代之
-
-- `$ git config --global alias.<alias> original name`
-  *注：alias后有一点*
-- 设置好的别名会自动存在GIT根目录下的.gitconfig文件中
-- 也可在.gitconfig文件中直接创建、更改、删除别名
-  (我已设如下别名：
-  st = status
-  cm = commit
-  br = branch
-  sw = switch)
-
-
-
-**5. 关于SourceTree**
-
- Sourcetree是一个用于本地的图形化GIT软件。通过图形界面方便运行GitBash命令。
+ Sourcetree是一个用于本地的图形化GIT软件，通过图形界面方便运行GitBash命令。
 
 1. 本地文件改动并保存（未add或commit）, Sourcetree能立即感应并在file status提示有文件pending，需后续操作
 2. 输入注释并`commit`，file status栏显示nothing to commit，即注释成功
@@ -541,9 +518,9 @@ md文件可以在GitHub中预览其内容。
 
 ​    
 
-**6. 在Visual Studio Code上进行Github操作**
+**2. 在Visual Studio Code上操作**
 
-Visual Studio Code上，ctr + shift + p后的输入框中，输入git即可出现github相关命令，可进行相关操作。
+Visual Studio Code上，`ctr + shift + p`后的输入框中，输入git即可出现github相关命令，可进行相关操作。
 
 - 首先需将远程某库克隆至本地，本地硬盘会自动产生同名文件夹、文件
 - 本地文件改动后，VS会感应到并提示需commit、撰写注释或push
@@ -551,16 +528,22 @@ Visual Studio Code上，ctr + shift + p后的输入框中，输入git即可出�
 
 
 
-**7. Github上如何删除文件？**
+
+
+# 其他
+
+
+
+**1. Github上如何删除文件？**
 进入该文件，点击右上下拉菜单，拉至最下点击delete file，再commit，即可删除。
 
 
 
-**8. 如何显示图片？**
+**2. 如何显示图片？**
 
 - 必须编辑/etc/host文件，写入相关DNS的IP地址及网址，才能显示图片。
 
-- 如图片网址为https://github.com/louieuscc/desktop-tutorial/tree/main/img/bat.png，则host文件中必须有GitHub.com的IP地址。
+- [图片网址在此](https://github.com/louieuscc/desktop-tutorial/tree/main/img/bat.png)，则host文件中必须有GitHub.com的IP地址。
 
 - Macbook中一般不能直接编辑host文件，可存为duplicate后再放入原host文件夹中，替换掉原host文件即可。host不能有扩展名
 
@@ -568,6 +551,56 @@ Visual Studio Code上，ctr + shift + p后的输入框中，输入git即可出�
 
   
 
-**9. 如何在READ.ME文件中插入图片？**
+**3. 如何在READ.ME文件中插入图片？**
 上传图片后，Copy其链接地址。在READ.ME文件中输入代码！[image]()
 在圆括号中粘贴图片地址即可。
+
+
+
+**4. MD是什么文件?**
+
+MD是Markdown的缩写，扩展名为.md。是一种带格式风格的纯文本文件。它可以通过MD编辑器（如Typora）制作和输出。 
+md文件可以在GitHub中预览其内容。 
+
+
+
+**5. 怎样参与GITHUB的一个开源项目**
+
+- 在Github网站上，找到该项目，点击右上的Fork即可将项目内容拷贝至自己在Github的帐号中
+- 从本机运行`git clone git@github.com:louieusc/<项目名>`，即可将项目内容克隆到本机的库中。今后可在本机推送修改
+- 如官方库能接受该修改，可在GitHub上发起一个pull request
+
+
+
+**6. 关于.gitignore忽略文件**
+
+某些文件不便或不需提交但又需存入Git目录中，可在Repo下创建一个.gitignore文件，将不提交项列入文中
+
+- <file name>: 将某文件列入忽略项
+
+- <.*>: 将所有以.开头的文件列入忽略项*
+
+- *<*.so>：将所有扩展名为so的文件列入忽略项
+
+- !<file name>: 不用忽略的例外文件
+
+  
+
+  *注：.gitignore本质是一个plain text文件，如忽略成功，目录中即使新加入了该类型文件且在目录中可见，但运行$ git status后系统也会提示工作树clean，无文件需提交。如果例外成功，该文件被加入目录后，$ git status后系统将提示有文件需提交*
+   (P.S. For re-edit .gitignore file, you may use $ nano .gitignore without sudo account)
+
+
+
+**7. 配置别名Alias**
+
+可将某些较复杂的命令设为简短的别名，之后运行命令时以别名代之
+
+- `git config --global alias.<alias> original name`
+  *注：alias后有一点*
+- 设置好的别名会自动存在GIT根目录下的.gitconfig文件中
+- 也可在.gitconfig文件中直接创建、更改、删除别名
+  (已设如下别名：
+  st = status
+  cm = commit
+  br = branch
+  sw = switch)
