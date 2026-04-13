@@ -21,17 +21,17 @@
 
 先将远程库克隆到本地根目录，查看本地会发现该库名的文件夹，内有文件若干。
 
--->进入该文件夹，它即为本地工作区（例如user/louie/文件夹名）
+-->I. 进入该文件夹，它即为本地工作区（例如：user/louie/文件夹名）
 
--->刚克隆的以上文件可编辑修改，保存 （会自动存入本地工作区）
+-->II. 刚克隆的文件可编辑修改，保存 （会存入本地工作区）
 
---> 也可另外新建文件，并编辑、保存
+-->III. 也可另外新建文件，并编辑、保存
 
---> 然后`git add`，存入本地暂存区stage area（尚未被跟踪untracked）
+--> IV. 然后运行`git add`，存入本地暂存区stage area（尚未被跟踪untracked）
 
---> 再`git commit`，加注释并存入本地库local repo（已被跟踪）
+--> V. 再`git commit`，加注释并存入本地库local repo（已被跟踪）
 
---> 最后`git push`，提交至远程库(GitHub)
+--> VI. 最后`git push`，提交至远程库(GitHub)
 
 
 
@@ -85,17 +85,17 @@
 - 开启GitBash，进入本地工作根目录，如c:\usr\louie
 
 - 运行：
-   
+  
 ~~~~
    $ git clone git@github.com:louieuscc/gitnote.git
-   ~~~~
-   
+~~~~
+
    也可从HTTPS网络地址克隆，运行：
-   
+
    ~~~~
    $ git clone https://github.com/Louieuscc/demo.git
    ~~~~
-   
+
 - 如克隆成功，则从本地根目录可发现一名为demo的文件夹，其中还包括一些文件
 
   *后续即可在此本地位置编辑、上传文件至远程，实现同步。*
@@ -124,13 +124,21 @@
 
 - 运行`git diff`，可查看修改详情 (仅刚对文本进行更改后，git diff命令才有效。如已提交将不会显示任何信息)
 
-- 先`git add <file name>`进行添加，存入本地暂存区
+- 先`git add <file name>`进行添加，存入本地暂存区。如：
 
-- 再`git commit -m "<commit>"`进行注释，存入本地库
+  ~~~~
+  $ git add note.md
+  ~~~~
 
-- 命令`git commit -am <file name>`可同时实现add + commit
+- 再`git commit -m "<commit>"`进行注释，存入本地库。如：
 
-- 再运行`git status`查看状态，系统报告当前无需提交之修改，且工作树干净 (nothing to commit, working tree clean)
+  ~~~~
+  $ git commit -m "modified something"
+  ~~~~
+
+- 也可`git commit -am <file name>`可同时实现add + commit
+
+- 运行`git status`查看状态，系统报告nothing to commit, working tree clean。表明本地入库成功。
 
 - `git branch`，查明本地分支名是什么，如果是main，而远程对应的demo库中的分支也是main，则：
 
@@ -143,11 +151,11 @@
   *注：多个文件修改保存后只需commit一次*
 
   ​      *编辑时务必注意文件名的大小写*
-  ​       如当日对文件会多次修改，可随时保存，但只需在当日结束前一次性提交和注释，无需多次提交*
+  ​     *如当日对文件会多次修改，可随时保存，但只需在当日结束前一次性提交和注释，无需多次提交*
 
   
 
-**4.本地创建新文件**
+**4.本地创建新文件并入库**
 
 -  `ls` 查看本地目录
 
@@ -258,7 +266,7 @@ Already up to date.
 
 
 
-**7. 如何从Github远程库界面下载文件**
+**7. 如何从Github网站下载文件**
 
 - 进入Github该文件所在目录，打开该文件，点击右上角Raw即显示出该文件的raw格式。
 - 右击鼠标选save as，即可下载该文件至本地。
@@ -279,7 +287,7 @@ Already up to date.
 
   
 
-**9.关于多部主机向远程同一目录库发送提交**
+**9.多部主机向远程同一目录库发送提交**
 
 - 如果多部主机都需向远程同一Repository发送文件或commit，此时远程主机的repository会自动产生两个branch，一个名为
       master，另一个名为main。
@@ -454,19 +462,25 @@ TAG相当于一个commit的别名，但简洁有意义。通过它可以快速�
 
   
 
-**19.**
-
-
-
 
 
 
 
 # Git的进阶操作
 
+**1.交互式暂存**
+
+有选择地将文件的某一部分添加到暂存区，即选择性的`add`，在处理复杂更改时很有用。
+
+~~~~
+$ git add -p
+~~~~
 
 
-**1.临时封存**
+
+
+
+**2.临时封存Stash**
 
 如果在当前文件未进行完毕，虽已add但尚未commit时，如果急需解决其它问题，可先将当前文件封存起来，事后再解封。
 
@@ -474,11 +488,11 @@ TAG相当于一个commit的别名，但简洁有意义。通过它可以快速�
 
   系统会显示*Saved working directory and index state WIP on main: c6a29fb make a new file*，表示已保存入工作目录中，封存编号为c6a29fb
 
--  `$ git status`，显示无需commit且工作树clean，封存完成
+-  `git status`，显示无需commit且工作树clean，封存完成
 
--  `$ git stash list`，可显示封存信息
+-  `git stash list`，可显示封存信息
 
--  `$ git stash pop`，可解封并删除stash信息。之后用git stash list查看，再无stash信息
+-  `git stash pop`，可解封并删除stash信息。之后用git stash list查看，再无stash信息
 
   
 
