@@ -64,7 +64,7 @@
   1. 在本地库目录下运行
 
      ~~~~
-   $ git remote add origin git@github.com:louieuscc/demo.git
+  $ git remote add origin git@github.com:louieuscc/demo.git
      ~~~~
 
      *注：louieusc是我在Github的ID，库名demo*
@@ -87,13 +87,13 @@
 - 运行：
   
 ~~~~
-   $ git clone git@github.com:louieuscc/gitnote.git
+ $ git clone git@github.com:louieuscc/gitnote.git
 ~~~~
 
    也可从HTTPS网络地址克隆，运行：
 
    ~~~~
-   $ git clone https://github.com/Louieuscc/demo.git
+ $ git clone https://github.com/Louieuscc/demo.git
    ~~~~
 
 - 如克隆成功，则从本地根目录可发现一名为demo的文件夹，其中还包括一些文件
