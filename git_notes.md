@@ -486,11 +486,11 @@ $ git add -p
 
 - 在当前工作分支下，`$ git stash`
 
-  系统会显示*Saved working directory and index state WIP on main: c6a29fb make a new file*，表示已保存入工作目录中，封存编号为c6a29fb
+  例如：运行封存命令后，显示*“Saved working directory and index state WIP on master: 8aab805 streamline some texts”*，表示已保存入master分支的工作目录中，封存编号为8aab805
 
--  `git status`，显示无需commit且工作树clean，封存完成
+- `git stash list`，可显示封存信息
 
--  `git stash list`，可显示封存信息
+  例如：运行后显示*“stash@{0}: WIP on master: 8aab805 streamline some texts.”*，表示封存在master分支，编号及注释内容
 
 -  `git stash pop`，可解封并删除stash信息。之后用git stash list查看，再无stash信息
 
