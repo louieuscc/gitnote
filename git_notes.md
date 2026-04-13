@@ -476,27 +476,39 @@ TAG相当于一个commit的别名，但简洁有意义。通过它可以快速�
 $ git add -p
 ~~~~
 
-
+- 先进入工作区目录
+- 运行`git add -p`后，会逐块（hunk）显示修改内容并弹出提示选项
+- 提示选项包括（y, n, s, e, q），分别表示暂存、忽略、拆分、编辑、退出
 
 
 
 **2.临时封存Stash**
 
-如果在当前文件未进行完毕，虽已add但尚未commit时，如果急需解决其它问题，可先将当前文件封存起来，事后再解封。
+如果当前文件未全部完成，已经add但尚未commit，可先将当前文件临时封存，以便切换到其他分支或处理其他事后再解封。
 
-- 在当前工作分支下，`$ git stash`
+- 进入当前工作目录，`$ git stash`
 
-  例如：运行封存命令后，显示*“Saved working directory and index state WIP on master: 8aab805 streamline some texts”*，表示已保存入master分支的工作目录中，封存编号为8aab805
+  *例如：运行后显示*Saved working directory and index state WIP on main: c6a29fb make a new file*，表示已保存入master分支的工作目录中，封存编号为c6a29fb*
 
-- `git stash list`，可显示封存信息
+-  `git stash list` 显示封存信息
 
-  例如：运行后显示*“stash@{0}: WIP on master: 8aab805 streamline some texts.”*，表示封存在master分支，编号及注释内容
+-  `git stash apply` 应用最近一次的封存进度
 
--  `git stash pop`，可解封并删除stash信息。之后用git stash list查看，再无stash信息
+- `git stash pop`应用并删除最近一次封存进度
+
+-  `git stash clear` 清空所有封存，再用git stash list查看，再无stash
 
   
 
-**2. 挑选提交Cherry-pick**
+**3.变基Rebase**
+
+用于将一个分支的更改转移到另一分支上，可帮助保持提交历史的线性，减少合并冲突。
+
+- `git rebase <分支名>`
+
+
+
+**4. 挑选提交Cherry-pick**
 
  允许选择特定提交，并将其应用到当前分支。在需要从一个分支移植特定更改到另一分支时很有用。需：
 
